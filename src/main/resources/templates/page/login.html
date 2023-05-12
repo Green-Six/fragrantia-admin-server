@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fragrantia Admin Login</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
+    <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+    <link rel="stylesheet" href="../../css/page/login.css">
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/reset.css" rel="stylesheet">
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/pageModuleSetting.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+</head>
+<body>
+<div id="logoNav">
+    <div class="logo-nav">
+        <a href="/auth/login"><img class="logo-img" src="../../images/adminLogo.png"></a>
+    </div>
+    <div class="login-box">
+        <h2>LOGIN</h2>
+        <form id="login-form" action="login" method="post">
+            <div class="user-box">
+                <input type="text" name="email" required="">
+                <label class="box-label">EMAIL</label>
+            </div>
+            <span class="error-message"></span>
+
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label class="box-label">Password</label>
+            </div>
+            <span class="error-message"></span>
+
+            <div class="link-box">
+                <a href="/auth/join">Join Account</a>
+                <a href="/aoufindAccount">Find Account</a>
+            </div>
+
+            <div class="submit-box">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+$(function () {
+    $("#login-form").validate({
+        rules: {
+            id: {
+                required: true,
+                minlength: 5,
+                maxlength: 20,
+            },
+            password: {
+                required: true,
+                minlength: 1,
+                maxlength: 100,
+            }
+        },
+        messages: {
+            id: {
+                required: "아이디를 입력해주세요",
+                minlength: "5자 이상 입력해주세요",
+                maxlength: "20자 이하로 입력해주세요",
+            },
+            password: {
+                required: "비밀번호를 입력해주세요",
+                minlength: "7자 이상 입력해주세요",
+                maxlength: "30자 이하로 입력해주세요",
+            }
+        },
+        submitHandler: function (form) {
+            form.submit();
+        },
+        errorPlacement: function (error, element) {
+            error.appendTo(element.parent().next());
+        }
+    });
+});
+
+</script>

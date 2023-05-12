@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fragrantia Admin Join</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
+    <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+    <link rel="stylesheet" href="../../css/page/join.css">
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/reset.css" rel="stylesheet">
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/pageModuleSetting.js"></script>
+    <script src="../../js/join.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+</head>
+<body>
+<div id="logoNav"></div>
+<div class="join-box">
+    <h2>JOIN</h2>
+    <form id="join-form">
+        <div class="user-box">
+            <input type="text" name="email" id="email" required="">
+            <label class="box-label">Email</label>
+        </div>
+        <span class="error-message"></span>
+
+        <div class="user-box">
+            <input type="password" id="password" name="password" required="">
+            <label class="box-label">Password</label>
+        </div>
+        <span class="error-message"></span>
+
+        <div class="user-box">
+            <input type="password" name="confirm-password" required="">
+            <label class="box-label">Confirm Password</label>
+        </div>
+        <span class="error-message"></span>
+
+        <div class="user-box">
+            <input type="text" id="name" name="name" required="">
+            <label class="box-label">Name</label>
+        </div>
+        <span class="error-message"></span>
+
+        <div class="user-box">
+            <input type="text" id="branch" name="branch" required="">
+            <label class="box-label">Branch</label>
+        </div>
+        <span class="error-message"></span>
+
+        <div class="submit-box" id="join">
+            <input type="submit" value="Join">
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $("#join-form").validate({
+            rules: {
+                id: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 20,
+                },
+                password: {
+                    required: true,
+                    minlength: 7,
+                    maxlength: 30,
+                },
+                'confirm-password': {
+                    required: true,
+                    equalTo: "#password"
+                },
+                name: {
+                    required: true,
+                    maxlength: 20,
+                },
+                branch: {
+                    required: true,
+                    maxlength: 20,
+                },
+            },
+            messages: {
+                id: {
+                    required: "아이디를 입력해주세요",
+                    minlength: "5자 이상 입력해주세요",
+                    maxlength: "20자 이하로 입력해주세요",
+                },
+                password: {
+                    required: "비밀번호를 입력해주세요",
+                    minlength: "7자 이상 입력해주세요",
+                    maxlength: "30자 이하로 입력해주세요",
+                },
+                'confirm-password': {
+                    required: "비밀번호를 확인해주세요",
+                    equalTo: "비밀번호가 일치하지 않습니다",
+                },
+                name: {
+                    required: "이름을 입력해주세요",
+                    maxlength: "20자 이하로 입력해주세요",
+                },
+                branch: {
+                    required: "지점명을 입력해주세요",
+                    maxlength: "20자 이하로 입력해주세요",
+                },
+            },
+            submitHandler: function () {
+                const json = {
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    name: $('#name').val(),
+                    branch: $('#branch').val()
+                };
+
+                $.ajax({
+                    url: "/admin",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    success: function(){
+                        alert("회원가입이 성공적으로 완료되었습니다.")
+                        window.location.href = '/auth/login'
+                    },
+                    error: function(){
+                        alert("simpleWithObject err");
+                    }
+                });
+            },
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent().next());
+            }
+        });
+    });
+
+
+</script>

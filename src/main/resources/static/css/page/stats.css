@@ -1,0 +1,112 @@
+@import url("https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css");
+.wrap .chart .chartWrap {
+  height: 100vw;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .wrap .chart .chartWrap {
+    height: 400px;
+  }
+}
+.wrap .chart div.labelwrap {
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .wrap .chart div.labelwrap {
+    display: block;
+  }
+}
+.wrap .chart label.chartLabelInput {
+  margin-right: 10px;
+  padding-left: 5px;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #1a3b5d;
+  user-select: none;
+}
+@media (min-width: 768px) {
+  .wrap .chart label.chartLabelInput {
+    display: block;
+  }
+}
+.wrap .chart input.chartInput {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid grey;
+}
+.wrap .chart input.chartInput#visitInput {
+  width: 220px;
+}
+.wrap .row {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (min-width: 1024px) {
+  .wrap .searchChartWrap {
+    width: 60%;
+  }
+}
+.wrap .tableContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+@media (min-width: 1024px) {
+  .wrap .tableContainer {
+    width: 40%;
+  }
+}
+.wrap .tableContainer .tableWrap {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .wrap .tableContainer .tableWrap {
+    width: 50%;
+  }
+}
+@media (min-width: 1024px) {
+  .wrap .tableContainer .tableWrap {
+    width: 100%;
+  }
+}
+.wrap .tableContainer .tableh1 {
+  margin-bottom: 2rem;
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.wrap .table {
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.wrap .table div.gridjs.gridjs-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table {
+  margin: auto;
+  overflow: hidden;
+  border-collapse: collapse;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table thead.gridjs-thead tr.gridjs-tr {
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px grey solid;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table thead.gridjs-thead tr.gridjs-tr th.gridjs-th div.gridjs-th-content {
+  padding: 6px 24px;
+  font-weight: bold;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table tbody.gridjs-tbody {
+  border-bottom: 1px solid #d8d8d8;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table tbody.gridjs-tbody tr.gridjs-tr:hover {
+  background-color: powderblue;
+}
+.wrap .table div.gridjs.gridjs-container div.gridjs-wrapper table.gridjs-table tbody.gridjs-tbody tr.gridjs-tr td.gridjs-td {
+  padding: 6px 24px;
+}

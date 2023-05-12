@@ -1,0 +1,235 @@
+/* Trouble Shooting #1
+   checkbox의 체크 이벤트 미작동
+   
+   Sol #1
+   페이지 검사를 통해 체크박스에 어떤 CSS가 해당 문제 현상을 야기하는지 분석
+   >> reset.css 에서 모든 태그의 모든 속성에 대한 초기화(all: unset;)가 원인
+   >> 해당 페이지 체크박스가 쓰이는 input 태그만 다시 revert로 설정 >> 해결
+*/
+input,
+button,
+select {
+  all: revert;
+}
+div, h1, label, input {
+  margin: 0;
+  padding: 0;
+}
+/* ================ 표 스타일 =============== */
+#customerService table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 2px auto 0 auto;
+  background-color: #fff;
+  table-layout: auto;
+}
+
+#customerService th,
+#customerService td {
+  padding: 10px;
+  text-align: center;
+}
+
+#customerService td.title {
+  width: 50%;
+}
+
+#customerService th {
+  background-color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.customerService-header:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#customerService .title {
+  text-align: left;
+}
+/* =============== 본문 영역 ============ */
+#customerService .customerService-content {
+  display: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#customerService .customerService-content .content {
+  overflow: hidden;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: white;
+}
+.content>.content_left {
+  float: left;
+  width: 15%;
+  text-align: right;
+  padding-right: 10px;
+}
+.content>.content_left>label {
+  height: 26.4px;
+  margin-bottom: 0.8rem;
+}
+.content>.content_left>label[for="ask_detail"], 
+.content>.content_left>label[for="ask_answer"] {
+  height: 80px;
+}
+.content>.content_center {
+  float: left;
+  width: 40%;
+}
+input[type=text] {
+  display: block;
+  width: 98%; 
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+  padding: 2px;
+}
+textarea[type=text] {
+  display: block;
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-bottom: 0.8rem;
+  padding: 2px;
+  border: 0.5px solid rgb(133, 133, 133);
+  border-radius: 2px;
+}
+.content>.content_right {
+  float: right;
+  position: relative;
+  width: 40%;
+  height: 320px; /* content_center 높이와 동일하게 */
+}
+.content>.content_right>img {
+  width: 80%;
+  margin-bottom: 10px;
+}
+.content>.content_right>label[for="ask_img_file"] {
+  display: inline-block;
+}
+.content>.content_right>#ask_img_file {
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.content>.content_right>button {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  width: 70px;
+  height: 25px;
+  padding: 2px;
+  text-align: center;
+  border: 0.5px solid gray;
+  font-size: 0.7rem;
+}
+
+.customerService-content .content_btn {
+  text-align: right;
+  margin: 5px 20px 10px 0;
+}
+
+.content_bottom {
+  display: none;
+}
+/* ======== 이전 숫자 다음 영역 ======== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.pagination ul {
+  display: flex;
+}
+
+.pagination li {
+  margin: 0 10px;
+}
+
+.pagination li a {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  color: #333;
+  border-radius: 5px;
+}
+
+.pagination li a:hover,
+.pagination li a.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.pagination .page_select {
+  background-color: #333;
+  color: #fff;
+}
+/* ================ 미디어 쿼리 ================ */
+@media screen and (max-width: 768px) {
+  #customerService table {
+    table-layout: fixed;
+  }
+
+  #customerService td.title, 
+  #customerService th.category {
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .content_bottom {
+    display: none;
+  }
+
+  .date,
+  .view {
+    display: none;
+  }
+
+  .pagination ul {
+    font-size: 70%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .content>.content_left {
+    float: left;
+    width: 25%;
+    text-align: right;
+    padding-right: 10px;
+  }
+  .content>.content_center {
+    float: right;
+    width: 60%;
+  }
+  input[type=text] {
+    display: block;
+    width: 98%; 
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+    padding: 2px;
+  }
+  .content>.content_right {
+    display: none;
+  }
+  .content_bottom {
+    display: block;
+    position: relative;
+  }
+  .content_bottom>input {
+    display: inline-block;
+    width: 50%;
+    margin-top: 0.8rem;
+  }
+  .content_bottom>button {
+    padding: 2px;
+    text-align: center;
+    border: 0.5px solid gray;
+    font-size: 0.7rem;
+  }
+}

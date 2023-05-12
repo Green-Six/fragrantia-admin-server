@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fragrantia.fragrantiaadminserver.domain.notice.NoticeMapper">
+
+    <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO NOTICE(title, content, created_at, admin_id)
+        VALUES (
+        #{title},
+        #{content},
+        #{createdAt},
+        #{adminId}
+        )
+    </insert>
+
+    <select id="getNotices" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
+        SELECT id, admin_id, title, content, view, created_at
+        FROM Notice
+    </select>
+
+    <select id="getNotice" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
+        SELECT id, admin_id, title, content, view, created_at
+        FROM Notice
+        WHERE id=#{noticeId}
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybratis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="fragrantia.fragrantiaadminserver.domain.admin.AdminMapper">
+
+    <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.admin.Admin" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO ADMIN(email, password, name, branch, created_at)
+        VALUES (
+        #{email},
+        #{password},
+        #{name},
+        #{branch},
+        #{createdAt}
+        )
+    </insert>
+
+    <select id="getAdmins" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
+        SELECT *
+        FROM Admin
+    </select>
+
+    <select id="getAdmin" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
+        SELECT *
+        FROM Admin
+        WHERE id=#{adminId}
+    </select>
+
+    <select id="getByEmail" parameterType="String" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
+        SELECT *
+        FROM Admin
+        WHERE email=#{email}
+    </select>
+</mapper>
