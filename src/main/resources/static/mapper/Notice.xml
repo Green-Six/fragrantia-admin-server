@@ -16,12 +16,33 @@
 
     <select id="getNotices" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
         SELECT id, admin_id, title, content, view, created_at
-        FROM Notice
+        FROM NOTICE
+        ORDER BY id DESC
+        LIMIT 10
+<!--        INNER JOIN ADMIN a ON n.admin_id = a.id-->
+
     </select>
 
     <select id="getNotice" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
         SELECT id, admin_id, title, content, view, created_at
-        FROM Notice
+        FROM NOTICE
         WHERE id=#{noticeId}
     </select>
+
+    <select id="count" resultType="int">
+        SELECT count(id)
+        FROM NOTICE
+    </select>
+
+    <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
+        SELECT id, admin_id, title, content, view, created_at
+        FROM NOTICE
+        ORDER BY id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getTotalNoticeCount" resultType="int">
+        SELECT COUNT(id) FROM NOTICE
+    </select>
+
 </mapper>
