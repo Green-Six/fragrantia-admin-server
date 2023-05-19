@@ -1,10 +1,9 @@
-create database fragrantiatest;
-drop database fragrantiatest;
+--create database fragrantia;
+--drop database fragrantia;
 show databases;
 
 drop table ADMIN;
 use fragrantia;
-use fragrantiatest;
 select database();
 
 select * from ADMIN;
@@ -74,12 +73,3 @@ create table CUSTOMER_SERVICE (
   created_at date not null,
   file varchar(100) not null
 );
-
-
--- drop table STORE;
-
--- insert into member(name) values('spring');
--- insert into member(name) values('spring2');
-
--- delete from member where id=15;
-
