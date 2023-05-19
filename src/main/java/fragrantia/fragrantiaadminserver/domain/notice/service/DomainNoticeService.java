@@ -1,5 +1,6 @@
 package fragrantia.fragrantiaadminserver.domain.notice.service;
 
+import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
 import fragrantia.fragrantiaadminserver.domain.notice.Notice;
 import fragrantia.fragrantiaadminserver.domain.notice.NoticeMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class DomainNoticeService implements NoticeService {
     }
 
     @Override
-    public List<Notice> getNoticesWithPaging(int offset, int limit) {
+    public List<GetNoticesDto> getNoticesWithPaging(int offset, int limit) {
         return noticeMapper.getNoticesWithPaging(offset, limit);
     }
 

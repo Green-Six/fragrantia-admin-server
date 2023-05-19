@@ -1,5 +1,6 @@
 package fragrantia.fragrantiaadminserver.domain.notice;
 
+import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,10 +12,7 @@ public interface NoticeMapper {
 
     Notice getNotice(Long noticeId);
 
-    List<Notice> getNoticesWithPaging(@Param("offset") int offset, @Param("limit") int limit);
+    List<GetNoticesDto> getNoticesWithPaging(@Param("offset") int offset, @Param("limit") int limit);
 
     int getTotalNoticeCount();
-
-
-
 }

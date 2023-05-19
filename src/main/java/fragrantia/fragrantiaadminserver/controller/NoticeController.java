@@ -1,5 +1,6 @@
 package fragrantia.fragrantiaadminserver.controller;
 
+import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
 import fragrantia.fragrantiaadminserver.controller.dto.NoticeCreateDto.NoticeCreateRequest;
 import fragrantia.fragrantiaadminserver.domain.notice.Notice;
 import fragrantia.fragrantiaadminserver.domain.notice.service.NoticeService;
@@ -24,7 +25,7 @@ public class NoticeController {
                             @RequestParam(defaultValue = "0") int page,
                             @RequestParam(defaultValue = "10") int size) {
         int offset = page * size;
-        List<Notice> notices = noticeService.getNoticesWithPaging(offset, size);
+        List<GetNoticesDto> notices = noticeService.getNoticesWithPaging(offset, size);
         int totalCount = noticeService.getTotalNoticeCount();
 
         model.addAttribute("notices", notices);

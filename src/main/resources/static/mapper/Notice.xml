@@ -14,24 +14,17 @@
         )
     </insert>
 
-    <select id="getNotices" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
-        SELECT id, admin_id, title, content, view, created_at
-        FROM NOTICE
-        ORDER BY id DESC
-        LIMIT 10
-
-    </select>
-
     <select id="getNotice" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
-        SELECT id, admin_id, title, content, view, created_at
+        SELECT id, admin_id, title, content, view, created_at AS createdAt
         FROM NOTICE
         WHERE id=#{noticeId}
     </select>
 
-    <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
-        SELECT id, admin_id, title, content, view, created_at
-        FROM NOTICE
-        ORDER BY id DESC
+    <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto">
+        SELECT n.id, a.name, n.title, n.content, n.view, n.created_at AS createdAt
+        FROM NOTICE n
+        INNER JOIN ADMIN a ON n.admin_id = a.id
+        ORDER BY n.id DESC
         LIMIT #{offset}, #{limit}
     </select>
 
