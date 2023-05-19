@@ -35,12 +35,4 @@ public class DomainNoticeService implements NoticeService {
     public int getTotalNoticeCount() {
         return noticeMapper.getTotalNoticeCount();
     }
-
-    private SqlSession sql;
-    private static String namespace = "fragrantia.fragrantiaadminserver.domain.notice.NoticeMapper";
-    @Override
-    public int count() throws Exception {
-        return sql.selectOne(namespace + ".count");
-    }
-
 }

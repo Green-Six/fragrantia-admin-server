@@ -19,13 +19,6 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
-//    @GetMapping
-//    public String getNotice(Model model) {
-//        List<Notice> notices = noticeService.getNotices();
-//        model.addAttribute("notices", notices);
-//        return "page/notice";
-//    }
-
     @GetMapping
     public String getNotice(Model model,
                             @RequestParam(defaultValue = "0") int page,
@@ -44,7 +37,6 @@ public class NoticeController {
     private int calculateTotalPages(int totalCount, int size) {
         return (int) Math.ceil((double) totalCount / size);
     }
-
 
     @PostMapping
     @ResponseBody

@@ -11,7 +11,4 @@ public interface NoticeService {
     List<Notice> getNoticesWithPaging(@Param("offset") int offset, @Param("limit") int limit);
 
     int getTotalNoticeCount();
-
-    // 게시물 총 갯수
-    public int count() throws Exception;
 }
