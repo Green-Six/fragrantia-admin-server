@@ -36,4 +36,22 @@ public class DomainNoticeService implements NoticeService {
     public int getTotalNoticeCount() {
         return noticeMapper.getTotalNoticeCount();
     }
+
+    @Override
+    public void updateNotice(String title, String content, Long id) {
+        Notice notice = noticeMapper.getNotice(id);
+
+        notice.update(title, content);
+
+        noticeMapper.updateNotice(notice);
+    }
+
+    @Override
+    public void deleteNotice(Long id) {
+        Notice notice = noticeMapper.getNotice(id);
+
+        noticeMapper.deleteNotice(notice);
+    }
+
+
 }

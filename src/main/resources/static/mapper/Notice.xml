@@ -32,4 +32,16 @@
         SELECT COUNT(id) FROM NOTICE
     </select>
 
+    <update id="updateNotice" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
+        UPDATE NOTICE
+        SET title = #{title}, content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteNotice" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
+        DELETE
+        FROM NOTICE
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

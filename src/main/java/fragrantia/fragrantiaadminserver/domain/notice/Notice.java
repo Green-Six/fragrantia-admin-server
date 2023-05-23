@@ -37,4 +37,9 @@ public class Notice {
 
         return new Notice(title, content, adminId);
     }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
