@@ -15,4 +15,8 @@ public interface NoticeMapper {
     List<GetNoticesDto> getNoticesWithPaging(@Param("offset") int offset, @Param("limit") int limit);
 
     int getTotalNoticeCount();
+
+    void updateNotice(Notice notice);
+
+    void deleteNotice(Notice notice);
 }

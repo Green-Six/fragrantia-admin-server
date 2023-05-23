@@ -2,7 +2,8 @@ package fragrantia.fragrantiaadminserver.controller;
 
 import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
 import fragrantia.fragrantiaadminserver.controller.dto.NoticeCreateDto.NoticeCreateRequest;
-import fragrantia.fragrantiaadminserver.domain.notice.Notice;
+import fragrantia.fragrantiaadminserver.controller.dto.NoticeDeleteDto;
+import fragrantia.fragrantiaadminserver.controller.dto.NoticeUpdateDto;
 import fragrantia.fragrantiaadminserver.domain.notice.service.NoticeService;
 import fragrantia.fragrantiaadminserver.security.DefaultFragrantiaAdmin;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,15 @@ import java.util.List;
 public class NoticeController {
 
     private final NoticeService noticeService;
+
+    @PostMapping("/create")
+    @ResponseBody
+    public void create(
+        @AuthenticationPrincipal DefaultFragrantiaAdmin admin,
+        @RequestBody NoticeCreateRequest req
+    ) {
+        noticeService.create(admin.getId(), req.getTitle(), req.getContent());
+    }
 
     @GetMapping
     public String getNotice(Model model,
@@ -39,12 +49,16 @@ public class NoticeController {
         return (int) Math.ceil((double) totalCount / size);
     }
 
-    @PostMapping
+    @PostMapping("/update")
     @ResponseBody
-    public void create(
-        @AuthenticationPrincipal DefaultFragrantiaAdmin admin,
-        @RequestBody NoticeCreateRequest req
-    ) {
-        noticeService.create(admin.getId(), req.getTitle(), req.getContent());
+    public void updateNotice(@RequestBody NoticeUpdateDto.NoticeUpdateRequest req) {
+        noticeService.updateNotice(req.getTitle(), req.getContent(), req.getId());
+    }
+
+    @DeleteMapping
+    @ResponseBody
+    public void deleteNotice(@RequestBody NoticeDeleteDto.NoticeDeleteRequest req) {
+        req.getIds()
+            .forEach(noticeService::deleteNotice);
     }
 }

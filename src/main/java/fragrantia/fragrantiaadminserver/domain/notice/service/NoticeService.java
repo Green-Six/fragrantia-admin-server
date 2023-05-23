@@ -9,7 +9,11 @@ import java.util.List;
 public interface NoticeService {
     Notice create(Long adminId, String title, String content);
 
-    List<GetNoticesDto> getNoticesWithPaging(@Param("offset") int offset, @Param("limit") int limit);
+    List<GetNoticesDto> getNoticesWithPaging(int offset, int limit);
 
     int getTotalNoticeCount();
+
+    void updateNotice(String title, String content, Long id);
+
+    void deleteNotice(Long Id);
 }
