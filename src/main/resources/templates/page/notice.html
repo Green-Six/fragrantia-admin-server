@@ -60,6 +60,7 @@
                     data: JSON.stringify(json),
                     success: function () {
                         alert("공지사항이 성공적으로 작성되었습니다.");
+                        location.reload();
                     },
                     error: function () {
                         alert("simpleWithObject err");
@@ -82,10 +83,14 @@
                 if (event.target.classList.contains("minus-button")) {
                     var checkedBoxes = $('input[type="checkbox"]#chk:checked');
                     console.log(checkedBoxes);
+
                     var idList = [];
 
                     $(checkedBoxes).each(function () {
-                        var id = document.querySelector('.notice-header .no').textContent;
+                        var id = $(this)
+                            .closest('.notice-header')
+                            .find('.no')
+                            .text();
                         if (id) { // id가 존재하는지 확인
                             idList.push(id);
                         } else {
@@ -108,7 +113,8 @@
                             contentType: 'application/json',
                             data: JSON.stringify(json),
                             success: function () {
-                                alert("삭제 성공");
+                                alert("게시물을 삭제했습니다.");
+                                location.reload();
                             },
                             error: function () {
                                 alert("simpleWithObject err");
@@ -181,6 +187,7 @@
                             data: JSON.stringify(json),
                             success: function () {
                                 alert("수정되었습니다.")
+                                location.reload();
                             },
                             error: function () {
                                 alert("simpleWithObject err");
