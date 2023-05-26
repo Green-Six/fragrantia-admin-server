@@ -13,7 +13,7 @@
 
     <!-- 외부 스타일시트(전역 <- 리셋포함) -->
     <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
-    <link href="../../css/global.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/page/notice.css">
     <link rel="stylesheet" href="../../css/module/buttonNav.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -60,6 +60,7 @@
                     data: JSON.stringify(json),
                     success: function () {
                         alert("공지사항이 성공적으로 작성되었습니다.");
+                        location.reload;
                     },
                     error: function () {
                         alert("simpleWithObject err");
@@ -85,7 +86,10 @@
                     var idList = [];
 
                     $(checkedBoxes).each(function () {
-                        var id = document.querySelector('.notice-header .no').textContent;
+                        var id = $(this)
+                            .closest('.notice-header')
+                            .find('.no')
+                            .text();
                         if (id) { // id가 존재하는지 확인
                             idList.push(id);
                         } else {
@@ -109,6 +113,7 @@
                             data: JSON.stringify(json),
                             success: function () {
                                 alert("삭제 성공");
+                                location.reload;
                             },
                             error: function () {
                                 alert("simpleWithObject err");
@@ -181,6 +186,7 @@
                             data: JSON.stringify(json),
                             success: function () {
                                 alert("수정되었습니다.")
+                                location.reload;
                             },
                             error: function () {
                                 alert("simpleWithObject err");

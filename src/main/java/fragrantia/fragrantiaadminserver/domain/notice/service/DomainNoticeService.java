@@ -1,11 +1,9 @@
 package fragrantia.fragrantiaadminserver.domain.notice.service;
 
-import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.GetNoticesDto;
 import fragrantia.fragrantiaadminserver.domain.notice.Notice;
 import fragrantia.fragrantiaadminserver.domain.notice.NoticeMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.jdbc.SqlRunner;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

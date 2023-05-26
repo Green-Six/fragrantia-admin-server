@@ -1,6 +1,6 @@
 package fragrantia.fragrantiaadminserver.controller;
 
-import fragrantia.fragrantiaadminserver.controller.dto.AdminCreateDto.AdminCreateRequest;
+import fragrantia.fragrantiaadminserver.controller.dto.admin.AdminCreateDto.AdminCreateRequest;
 import fragrantia.fragrantiaadminserver.domain.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

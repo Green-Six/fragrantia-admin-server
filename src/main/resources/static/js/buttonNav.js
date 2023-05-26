@@ -2,7 +2,7 @@ $(document).ready(function () {
     
     if(
         document.title.includes("Notice")||
-        document.title.includes("Shop")
+        document.title.includes("Store")
     ){
         $('.select_box').remove();
     }

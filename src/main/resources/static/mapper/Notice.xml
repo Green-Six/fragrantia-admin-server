@@ -20,7 +20,7 @@
         WHERE id=#{noticeId}
     </select>
 
-    <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto">
+    <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.notice.GetNoticesDto">
         SELECT n.id, a.name, n.title, n.content, n.view, n.created_at AS createdAt
         FROM NOTICE n
         INNER JOIN ADMIN a ON n.admin_id = a.id

@@ -1,6 +1,6 @@
 package fragrantia.fragrantiaadminserver.domain.notice;
 
-import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.GetNoticesDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
