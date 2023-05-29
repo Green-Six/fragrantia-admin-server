@@ -49,7 +49,6 @@ public class Store {
         require(Strings.isNotBlank(name));
         require(Strings.isNotBlank(detail));
         require(Strings.isNotBlank(telephone));
-        require(Strings.isNotBlank(file));
 
         return new Store(latitude, longitude, zip, address, name, detail, telephone, file);
     }

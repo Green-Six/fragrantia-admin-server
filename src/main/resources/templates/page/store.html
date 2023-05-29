@@ -59,7 +59,10 @@
                     name: $('#create_name').val(),
                     detail: $('#create_detail').val(),
                     telephone: $('#create_tel').val(),
+                    file: $('#photo').val()
                 };
+
+                console.log(json);
 
                 $.ajax({
                     url: "/store/create",
@@ -239,25 +242,25 @@
             <h2>New store</h2>
             <form>
                 <label for="create_name">매장 이름</label><br />
-                <input type="text" name="create_name" id="create_name" readonly><br />
+                <input type="text" name="create_name" id="create_name"><br />
 
                 <label for="create_tel">전화번호</label><br />
-                <input type="tel" name="create_tel" id="create_tel" readonly><br />
+                <input type="tel" name="create_tel" id="create_tel"><br />
 
                 <label for="create_addr">주소</label><br />
-                <input type="text" name="create_addr" id="create_addr" readonly><br />
+                <input type="text" name="create_addr" id="create_addr"><br />
 
                 <label for="create_zip">우편번호</label><br />
-                <input type="number" name="create_zip" id="create_zip" readonly><br />
+                <input type="number" name="create_zip" id="create_zip"><br />
 
                 <label for="create_latitude">위도</label><br />
-                <input type="number" name="create_latitude" id="create_latitude" readonly><br />
+                <input type="number" name="create_latitude" id="create_latitude"><br />
 
-                <label for="store_longitude">경도</label><br />
-                <input type="number" name="create_longitude" id="create_longitude" readonly><br />
+                <label for="create_longitude">경도</label><br />
+                <input type="number" name="create_longitude" id="create_longitude"><br />
 
                 <label for="create_detail">상세 설명</label><br />
-                <textarea name="create_detail" id="create_detail" readonly></textarea><br />
+                <textarea name="create_detail" id="create_detail"></textarea><br />
 
                 <label for="photo">사진</label>
                 <input type="file" id="photo" name="photo"><br>
