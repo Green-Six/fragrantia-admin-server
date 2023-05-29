@@ -1,8 +1,9 @@
-input{
-    all:revert;
+input,
+button {
+    all: revert;
 }
 
-#shop table {
+#store table {
     border-collapse: collapse;
     width: 100%;
     margin: 10px auto 0 auto;
@@ -10,52 +11,102 @@ input{
     table-layout: auto;
 }
 
-#shop th,
-#shop td {
+#store th,
+#store td {
     padding: 10px;
     text-align: center;
 }
 
-#shop th {
+#store th {
     background-color: #eee;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.shop-header:hover {
+.store-header:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 
-#shop .shop-content {
+#store .store-content {
     display: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-#shop .shop-content .content {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+#store .store-content .content {
+    text-align: left;
     padding: 20px;
     background-color: white;
 }
 
-#shop .shop-content h1 {
+textarea {
+    width: 90%;
+    height: 100px;
+    background-color: #dedede;
+}
+
+.content.labelLabel {
+    display: block;
+}
+
+.content>.fileUpload {
+    display: inline-block;
+    padding: 0.5%;
+    background-color: rgb(216, 216, 216);
+    cursor: pointer;
+}
+
+.content input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.store_text[readonly] {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.edit-btn.hide {
+    display: none;
+}
+
+.store_text.editable {
+    cursor: auto;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    resize: vertical;
+}
+
+#store .store-content .content_btn {
+    text-align: right;
+    margin: 0 20px 10px 0;
+}
+
+#store .store-content h1 {
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-#shop .shop-content p {
+#store .store-content p {
     font-size: 14px;
 }
 
-#shop .shop-content img{
+#store .store-content img {
     width: 150px;
 }
-#shop .shop-content .imgbox{
+
+#store .store-content .imgbox {
     height: 100%;
 }
+
+/* ========== 이전 숫자 다음 영역 ========= */
 .pagination {
     display: flex;
     justify-content: center;
@@ -64,7 +115,7 @@ input{
 }
 
 .pagination ul {
-    display: flex;  
+    display: flex;
 }
 
 .pagination li {
@@ -91,13 +142,13 @@ input{
     color: #fff;
 }
 
-@media screen and (max-width: 768px) {
-    #shop table {
+@media screen and (max-width: 425px) {
+    #store table {
         table-layout: fixed;
     }
 
 
-    #shop td.title {
+    #store td.title {
         width: auto;
         white-space: nowrap;
         overflow: hidden;
@@ -107,12 +158,15 @@ input{
     .addr {
         display: none;
     }
-    #shop .shop-content .content{
+
+    #store .store-content .content {
         display: block;
     }
-    .br_m{
+
+    .br_m {
         display: none;
     }
+
     .pagination ul {
         font-size: 70%;
     }

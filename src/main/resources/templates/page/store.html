@@ -3,10 +3,11 @@
       xsi:schemaLocation="http://www.thymeleaf.org ">
 
 <head>
-    <title>Fragrantia Admin Notice</title>
+    <title>Fragrantia Admin Store</title>
 
     <!-- meta Setting -->
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
     <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
@@ -14,21 +15,23 @@
     <!-- 외부 스타일시트(전역 <- 리셋포함) -->
     <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
     <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/page/notice.css">
+    <link rel="stylesheet" href="../../css/page/store.css">
     <link rel="stylesheet" href="../../css/module/buttonNav.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
     <!-- 외부 스크립트 (자바스크립트, jQuery) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/047a434073.js" crossorigin="anonymous"></script>
     <script src="../../js/jquery.min.js"></script>
     <script src="../../js/buttonNav.js"></script>
-
     <script>
         // colspan size 조절 함수
         let reColspan = function () {
             if ($(window).width() <= 425) {
                 // colspan 속성이 6인 td 요소를 찾아서
-                $("tr.notice-content td[colspan='6']").each(function () {
+                $("tr.store-content td[colspan='6']").each(function () {
                     // colspan 속성 값을 4으로 변경
                     $(this).attr("colspan", "4");
                 });
@@ -36,7 +39,7 @@
             // 데스크탑 버전인 경우
             else {
                 // colspan 속성이 4인 td 요소를 찾아서
-                $("tr.notice-content td[colspan='4']").each(function () {
+                $("tr.store-content td[colspan='4']").each(function () {
                     // colspan 속성 값을 6으로 변경
                     $(this).attr("colspan", "6");
                 });
@@ -49,18 +52,23 @@
 
             modalSubmit.addEventListener("click", () => {
                 const json = {
-                    title: $('#title').val(),
-                    content: $('#content').val(),
+                    latitude: $('#create_latitude').val(),
+                    longitude: $('#create_longitude').val(),
+                    zip: $('#create_zip').val(),
+                    address: $('#create_addr').val(),
+                    name: $('#create_name').val(),
+                    detail: $('#create_detail').val(),
+                    telephone: $('#create_tel').val(),
                 };
 
                 $.ajax({
-                    url: "/notice/create",
+                    url: "/store/create",
                     type: "POST",
                     contentType: 'application/json',
                     data: JSON.stringify(json),
                     success: function () {
-                        alert("공지사항이 성공적으로 작성되었습니다.");
-                        location.reload();
+                        alert("매장 정보가 성공적으로 등록되었습니다.");
+                        location.reload;
                     },
                     error: function () {
                         alert("simpleWithObject err");
@@ -69,10 +77,10 @@
                 modal.style.display = "none";
             });
 
-            $('.notice-header').click(function () {
-                var content = $(this).closest('tr').next('.notice-content');
+            $('.store-header').click(function () {
+                var content = $(this).closest('tr').next('.store-content');
                 content.fadeToggle('slow'); // 클릭한 요소 열기/닫기
-                $('.notice-content').not(content).fadeOut(); // 이미 열려있는 요소 닫기
+                $('.store-content').not(content).fadeOut(); // 이미 열려있는 요소 닫기
             });
             $('input[type="checkbox"]').click(function (event) {
                 event.stopPropagation(); // 클릭 이벤트 전파 방지
@@ -83,12 +91,11 @@
                 if (event.target.classList.contains("minus-button")) {
                     var checkedBoxes = $('input[type="checkbox"]#chk:checked');
                     console.log(checkedBoxes);
-
                     var idList = [];
 
                     $(checkedBoxes).each(function () {
                         var id = $(this)
-                            .closest('.notice-header')
+                            .closest('.store-header')
                             .find('.no')
                             .text();
                         if (id) { // id가 존재하는지 확인
@@ -108,13 +115,13 @@
                         console.log(json);
 
                         $.ajax({
-                            url: "/notice",
+                            url: "/store",
                             type: "DELETE",
                             contentType: 'application/json',
                             data: JSON.stringify(json),
                             success: function () {
-                                alert("게시물을 삭제했습니다.");
-                                location.reload();
+                                alert("삭제 성공");
+                                location.reload;
                             },
                             error: function () {
                                 alert("simpleWithObject err");
@@ -127,14 +134,12 @@
             //시작 할때 colspan 화면 크기에 맞게 설정
             reColspan()
 
-            // chkAll을 클릭했을 때, chkAll이 체크되어 있으면, name이 chk인 input 태그의 checked 속성을 true로 설정
-            // >> 전체 체크 박스를 체크하면 모든 체크 박스 체크
+            // chkAll을 클릭했을 때
             $("#chkAll").click(function () {
                 if ($("#chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
                 else $("input[name=chk]").prop("checked", false);
             });
-            // name이 chk인 input 태그를 클릭하면, name이 chk인 요소의 개수를 total 변수에 저장.
-            // name이 chk인 요소 중에 checked 되어 있는 요소의 개수를 checked 개수에 저장.
+            // name이 chk인 input 태그를 클릭
             $("input[name=chk]").click(function () {
                 var total = $("input[name=chk]").length;
                 var checked = $("input[name=chk]:checked").length;
@@ -147,17 +152,16 @@
 
             // 수정버튼 동작
             const editBtns = document.querySelectorAll('.edit-btn');
+            const storeTextElements = document.querySelectorAll('.store_text');
 
             editBtns.forEach((editBtn) => {
-                const noticeTitle = editBtn.closest('.notice-content').querySelector('[name="notice-title"]');
-                const noticeTextarea = editBtn.closest('.notice-content').querySelector('[name="notice-textarea"]');
-                const noticeId = document.querySelector('.notice-header .no').textContent;
+                const storeId = document.querySelector('.store-header .no').textContent;
 
                 editBtn.addEventListener('click', () => {
-                    noticeTitle.classList.add('editable');
-                    noticeTitle.removeAttribute('readonly');
-                    noticeTextarea.classList.add('editable');
-                    noticeTextarea.removeAttribute('readonly');
+                    storeTextElements.forEach((storeTextElement) => {
+                        storeTextElement.classList.add('editable');
+                        storeTextElement.removeAttribute('readonly');
+                    });
 
                     editBtn.classList.add('hide');
 
@@ -167,27 +171,33 @@
                     saveBtn.innerText = 'Save';
 
                     saveBtn.addEventListener('click', () => {
-                        noticeTitle.classList.remove('editable');
-                        noticeTitle.setAttribute('readonly', '');
-                        noticeTextarea.classList.remove('editable');
-                        noticeTextarea.setAttribute('readonly', '');
+                        storeTextElements.forEach((storeTextElement) => {
+                            storeTextElement.classList.remove('editable');
+                            storeTextElement.setAttribute('readonly', '');
+                        });
 
                         const json = {
-                            id: noticeId,
-                            title: $('.notice-title').val(),
-                            content: $('.notice-textarea').val(),
+                            id: storeId,
+                            latitude: $('#store_latitude').val(),
+                            longitude: $('#store_longitude').val(),
+                            zip: $('#store_zip').val(),
+                            address: $('#store_addr').val(),
+                            name: $('#store_name').val(),
+                            detail: $('#store_detail').val(),
+                            telephone: $('#store_tel').val(),
+                            file: $('#store_file_name').val()
                         };
 
                         console.log(json);
 
                         $.ajax({
-                            url: "/notice/update",
+                            url: "/store/update",
                             type: "POST",
                             contentType: 'application/json',
                             data: JSON.stringify(json),
                             success: function () {
                                 alert("수정되었습니다.")
-                                location.reload();
+                                location.reload;
                             },
                             error: function () {
                                 alert("simpleWithObject err");
@@ -212,7 +222,7 @@
 <body>
 <div id="header"></div>
 <div class="wrap">
-    <span class="h1">공지사항 관리</span>
+    <span class="h1">매장 관리</span>
 </div>
 
 <div class="wrap but_nav_box">
@@ -220,26 +230,37 @@
         <a href="#"><i class="plus-button fa-regular fa-square-plus fa-xl" style="color: #000000;"></i></a>
         <a href="#"><i class="minus-button fa-regular fa-square-minus fa-xl" style="color: #000000;"></i></a>
     </div>
-    <div class="select_box">
-        <select id="category">
-            <option>All</option>
-            <option>Flower</option>
-            <option>Perfume</option>
-        </select>
-    </div>
 </div>
 
-<div id="notice" class="wrap">
+<div id="store" class="wrap">
 
     <div id="modal" class="create-modal" style="display: none">
         <div class="create-modal-content">
-            <h2>New Notice</h2>
+            <h2>New store</h2>
             <form>
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title"><br>
+                <label for="create_name">매장 이름</label><br />
+                <input type="text" name="create_name" id="create_name" readonly><br />
 
-                <label for="content">내용</label>
-                <textarea id="content" name="content"></textarea><br>
+                <label for="create_tel">전화번호</label><br />
+                <input type="tel" name="create_tel" id="create_tel" readonly><br />
+
+                <label for="create_addr">주소</label><br />
+                <input type="text" name="create_addr" id="create_addr" readonly><br />
+
+                <label for="create_zip">우편번호</label><br />
+                <input type="number" name="create_zip" id="create_zip" readonly><br />
+
+                <label for="create_latitude">위도</label><br />
+                <input type="number" name="create_latitude" id="create_latitude" readonly><br />
+
+                <label for="store_longitude">경도</label><br />
+                <input type="number" name="create_longitude" id="create_longitude" readonly><br />
+
+                <label for="create_detail">상세 설명</label><br />
+                <textarea name="create_detail" id="create_detail" readonly></textarea><br />
+
+                <label for="photo">사진</label>
+                <input type="file" id="photo" name="photo"><br>
 
                 <button id="modal-submit" type="submit">작성</button>
                 <button id="modal-close">취소</button>
@@ -249,62 +270,87 @@
 
     <!-- 테이블 영역 -->
     <table>
-        <!-- 테이블 헤드 영역 -->
+        <!-- 헤더 -->
         <thead>
         <tr>
             <th class="check"><input type="checkbox" name="chkAll" id="chkAll" /></th>
-            <th class="no">No</th>
-            <th class="title">Title</th>
-            <th class="admin">Admin</th>
-            <th class="date">Date</th>
-            <th class="view">View</th>
+            <th class="no">NO</th>
+            <th class="title">매장이름</th>
+            <th class="tel">전화번호</th>
+            <th class="addr">주소</th>
         </tr>
         </thead>
 
-        <!-- 테이블 바디 영역 -->
-        <tbody th:each="notice : ${notices}">
-        <!-- 요약 내용 영역 -->
-        <tr class="notice-header">
+        <!-- 본문 -->
+        <tbody th:each="store : ${stores}">
+        <!-- 요약 -->
+        <tr class="store-header">
             <td class="check"><input type="checkbox" name="chk" id="chk" /></td>
-            <td class="no" th:text="${notice.id}"></td>
-            <td class="title" th:text="${notice.title}"></td>
-            <td class="admin" th:text="${notice.name}"></td>
-            <td class="date" th:text="${notice.createdAt}"></td>
-            <td class="view" th:text="${notice.view}"></td>
+            <td class="no" th:text="${store.id}"></td>
+            <td class="title" th:text="${store.name}"></td>
+            <td class="tel" th:text="${store.telephone}"></td>
+            <td class="addr" th:text="${store.address}"></td>
         </tr>
-
-        <!-- 본문 영역 -->
-        <tr class="notice-content">
-            <td colspan="6">
+        <!-- 상세 -->
+        <tr class="store-content">
+            <td colspan="5">
                 <div class="content">
-                            <textarea name="notice-title" class="notice-title" rows="1" cols="100" readonly
-                                      th:text="${notice.title}"></textarea>
-                    <textarea name="notice-textarea" class="notice-textarea" rows="6" cols="100" readonly
-                              th:text="${notice.content}"></textarea>
+
+                    <label for="store_name">매장 이름</label><br />
+                    <input type="text" name="store_name" id="store_name" class="store_text" readonly
+                           th:value="${store.name}"><br />
+
+                    <label for="store_tel">전화번호</label><br />
+                    <input type="tel" name="store_tel" id="store_tel" class="store_text" readonly
+                           th:value="${store.telephone}"><br />
+
+                    <label for="store_addr">주소</label><br />
+                    <input type="text" name="store_addr" id="store_addr" class="store_text" readonly
+                           th:value="${store.address}"><br />
+
+                    <label for="store_zip">우편번호</label><br />
+                    <input type="number" name="store_zip" id="store_zip" class="store_text" readonly
+                           th:value="${store.zip}"><br />
+
+                    <label for="store_latitude">위도</label><br />
+                    <input type="number" name="store_latitude" id="store_latitude" class="store_text" readonly
+                           th:value="${store.latitude}"><br />
+
+                    <label for="store_longitude">경도</label><br />
+                    <input type="number" name="store_longitude" id="store_longitude" class="store_text" readonly
+                           th:value="${store.longitude}"><br />
+
+                    <label for="store_detail">상세 설명</label><br />
+                    <textarea name="store_detail" id="store_detail" class="store_text" readonly
+                              th:text="${store.detail}"></textarea><br />
+
+                    <label class="labelLabel">파일</label><br />
+
+                    <label for="store_file_name" class="fileUpload">UPLOAD</label>
+                    <input type="file" name="store_file_name" id="store_file_name" disabled="true"
+                           th:value="${store.file}"><br />
+
                 </div>
                 <div class="content_btn">
                     <button type="button" class="btn btn-dark edit-btn">Edit</button>
                 </div>
             </td>
         </tr>
-
         </tbody>
-    </table>
 
+    </table>
     <div class="pagination">
         <ul>
-            <li><a th:href="@{${'notice?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
+            <li><a th:href="@{${'store?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
             <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
-                <a th:href="@{${'notice?page=' + pageNum}}" th:text="${pageNum + 1}"
+                <a th:href="@{${'store?page=' + pageNum}}" th:text="${pageNum + 1}"
                    th:class="${pageNum == currentPage ? 'active' : ''}"></a>
             </li>
-            <li><a th:href="@{${'notice?page=' + (currentPage + 1)}}"
+            <li><a th:href="@{${'store?page=' + (currentPage + 1)}}"
                    th:if="${currentPage < totalPages - 1}">Next</a></li>
         </ul>
     </div>
-
 </div>
-
 </body>
 
 </html>

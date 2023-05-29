@@ -1,9 +1,9 @@
 package fragrantia.fragrantiaadminserver.controller;
 
-import fragrantia.fragrantiaadminserver.controller.dto.GetNoticesDto;
-import fragrantia.fragrantiaadminserver.controller.dto.NoticeCreateDto.NoticeCreateRequest;
-import fragrantia.fragrantiaadminserver.controller.dto.NoticeDeleteDto;
-import fragrantia.fragrantiaadminserver.controller.dto.NoticeUpdateDto;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.GetNoticesDto;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.NoticeCreateDto.NoticeCreateRequest;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.NoticeDeleteDto;
+import fragrantia.fragrantiaadminserver.controller.dto.notice.NoticeUpdateDto;
 import fragrantia.fragrantiaadminserver.domain.notice.service.NoticeService;
 import fragrantia.fragrantiaadminserver.security.DefaultFragrantiaAdmin;
 import lombok.RequiredArgsConstructor;

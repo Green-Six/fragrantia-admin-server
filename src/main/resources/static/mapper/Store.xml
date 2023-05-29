@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fragrantia.fragrantiaadminserver.domain.store.StoreMapper">
+
+    <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone)
+        VALUES (
+        #{latitude},
+        #{longitude},
+        #{zip},
+        #{address},
+        #{name},
+        #{detail},
+        #{telephone},
+        #{file}
+        )
+    </insert>
+
+    <select id="getStore" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.store.Store">
+        SELECT id, latitude, longitude, zip, address, name, detail, telephone, file
+        FROM STORE
+        WHERE id = #{id}
+    </select>
+
+    <select id="getStoresWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.store.GetStoresDto">
+        SELECT id, latitude, longitude, zip, address, name, detail, telephone, file
+        FROM STORE
+        ORDER BY id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getTotalStoreCount" resultType="int">
+        SELECT COUNT(id) FROM STORE
+    </select>
+
+    <update id="updateStore" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store">
+        UPDATE STORE
+        SET latitude = #{latitude}, longitude = #{longitude}, zip = #{zip}, address = #{address}, name = #{name}, detail = #{detail}, telephone = #{telephone}, file = #{file}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteStore" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store">
+        DELETE
+        FROM STORE
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

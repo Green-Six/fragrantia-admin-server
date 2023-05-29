@@ -1,4 +1,4 @@
-package fragrantia.fragrantiaadminserver.controller.dto;
+package fragrantia.fragrantiaadminserver.controller.dto.admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
