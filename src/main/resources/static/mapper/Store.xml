@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone)
+        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone, file)
         VALUES (
         #{latitude},
         #{longitude},
