@@ -36,7 +36,7 @@ public class SecurityConfig {
                 "/auth/join",
                 "/auth/find-account"
             ).permitAll()
-            .antMatchers("/admin").permitAll()
+            .antMatchers("/admin", "/admin/idCheck").permitAll()
             .anyRequest().authenticated();
 
         http.formLogin()
