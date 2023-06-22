@@ -8,7 +8,14 @@ spring:
     user:
       name: user
       password: 1234
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dlwjddlr97@gmail.com
+    password: lziyiqmietugughm
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 mybatis:
   type-aliases-package: fragrantia

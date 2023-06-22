@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Fragrantia Admin Find Account</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
+    <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/reset.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/page/findAccount.css">
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/findAccount.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+</head>
+
+<body>
+    <div id="logoNav"></div>
+    <div class="logo-nav">
+        <a href="/auth/login" class="logo-link">
+            <img class="logo-img" src="../../images/adminLogo.png">
+        </a>
+    </div>
+    <div class="find-account-box">
+        <h2>Find Account</h2>
+        <form id="find-account-form">
+            <div class="user-box">
+                <input type="text" name="name" id="name" required="">
+                <label class="box-label">Name</label>
+            </div>
+            <span class="error-message"></span>
+
+            <div class="user-box">
+                <input type="email" name="email" id="email" required="">
+                <label class="box-label">E-Mail</label>
+            </div>
+            <span class="error-message"></span>
+
+            <div class="user-box">
+                <input type="text" name="branch" id="branch" required="">
+                <label class="box-label">Branch</label>
+            </div>
+            <span class="error-message"></span>
+
+            <div class="submit-box">
+                <input type="submit" value="Request">
+            </div>
+        </form>
+        <hr>
+        <div class="text-center small mt-2" id="checkMsg" style="color: red">
+        </div>
+    </div>
+</body>
+
+</html>
