@@ -40,4 +40,9 @@ public class DomainAdminService implements AdminService, UserDetailsService {
 
         return new DefaultFragrantiaAdmin(admin.getId(), admin.getEmail(), admin.getPassword());
     }
+
+    @Override
+    public int isEmailDuplicate(String email) {
+        return adminMapper.idCheck(email);
+    }
 }

@@ -4,4 +4,6 @@ import fragrantia.fragrantiaadminserver.domain.admin.Admin;
 
 public interface AdminService {
     Admin create(String email, String password, String name, String branch);
+
+    public int isEmailDuplicate(String email);
 }

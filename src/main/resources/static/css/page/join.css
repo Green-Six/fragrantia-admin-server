@@ -1,4 +1,34 @@
+.logo-link {
+    display: block;
+    width: 50%;
+}
 
+.logo-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.logo-img {
+    width: 100%;
+}
+
+.logo-img:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+    .logo-nav {
+        margin-top: 10vh;
+    }
+    .logo-link {
+        width: 80%;
+    }
+
+    .logo-img {
+        width: 100%;
+    }
+}
 
 .join-box {
     width: 70%;
@@ -68,6 +98,18 @@
 
 .submit-box input:hover {
     background-color: #333;
+}
+
+.id_ok {
+    color: green;
+    display: none;
+    font-size: 13px;
+}
+
+.id_already {
+    color: red;
+    display: none;
+    font-size: 13px;
 }
 
 .error-message {

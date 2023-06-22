@@ -16,6 +16,11 @@
         )
     </insert>
 
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(id)
+        FROM Admin WHERE email = #{email}
+    </select>
+
     <select id="getAdmins" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
         SELECT *
         FROM Admin

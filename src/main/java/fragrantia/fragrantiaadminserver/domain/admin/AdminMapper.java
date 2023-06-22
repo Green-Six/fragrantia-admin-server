@@ -13,4 +13,6 @@ public interface AdminMapper {
     List<Admin> getAdmins();
 
     Admin getByEmail(String email);
+
+    int idCheck(String email);
 }
