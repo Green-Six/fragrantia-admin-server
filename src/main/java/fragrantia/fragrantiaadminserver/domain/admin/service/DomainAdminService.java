@@ -3,6 +3,7 @@ package fragrantia.fragrantiaadminserver.domain.admin.service;
 
 import fragrantia.fragrantiaadminserver.domain.admin.Admin;
 import fragrantia.fragrantiaadminserver.domain.admin.AdminMapper;
+import fragrantia.fragrantiaadminserver.domain.notice.Notice;
 import fragrantia.fragrantiaadminserver.security.DefaultFragrantiaAdmin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
