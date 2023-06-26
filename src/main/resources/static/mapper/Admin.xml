@@ -37,4 +37,10 @@
         FROM Admin
         WHERE email=#{email}
     </select>
+
+    <update id="updateAdminPassword" parameterType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
+        UPDATE Admin
+        SET email = #{email}, password = #{password}
+        WHERE email = #{email}
+    </update>
 </mapper>

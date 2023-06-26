@@ -34,4 +34,9 @@ public class Admin {
 
         return new Admin(email, password, name, branch); // 인스턴스 생성
     }
+
+    public void update(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

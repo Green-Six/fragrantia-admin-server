@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     testImplementation 'io.github.cweijan:http-test:1.0.0'
 
     compileOnly 'org.projectlombok:lombok'

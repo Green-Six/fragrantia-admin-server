@@ -14,5 +14,7 @@ public interface AdminMapper {
 
     Admin getByEmail(String email);
 
+    void updateAdminPassword(Admin admin);
+
     int idCheck(String email);
 }
