@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerServiceMapper">
+
+    <select id="getCustomerService" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerService">
+        SELECT id, admin_id, title, category, user_name AS userName, email, detail, answer, file_name AS fileName, view, created_at AS createdAt
+        FROM CUSTOMER_SERVICE
+        WHERE id=#{customerServiceId}
+    </select>
+
+    <select id="getCustomerServicesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.customerservice.GetCustomerServicesDto">
+        SELECT c.id, c.admin_id, c.title, c.category, c.user_name AS userName, c.email, c.detail, c.answer, c.file_name AS fileName, c.view, c.created_at AS createdAt
+        FROM CUSTOMER_SERVICE c
+<!--        INNER JOIN ADMIN a ON c.admin_id = a.id-->
+        ORDER BY c.id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getTotalCustomerServiceCount" resultType="int">
+        SELECT COUNT(id) FROM CUSTOMER_SERVICE
+    </select>
+
+    <update id="updateCustomerService" parameterType="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerService">
+        UPDATE CUSTOMER_SERVICE
+        SET answer = #{answer}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
