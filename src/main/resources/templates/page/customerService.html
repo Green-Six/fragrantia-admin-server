@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <title>Fragrantia Admin Customer Service</title>
+
+    <!-- meta Setting -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
+    <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
+
+    <!-- 외부 스타일시트(전역 <- 리셋포함) -->
+    <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/page/customerService.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- 외부 스크립트 (자바스크립트, jQuery) -->
+    <script src="https://kit.fontawesome.com/047a434073.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/customerService.js"></script>
+</head>
+
+<body>
+<div id="header"></div>
+<div class="wrap">
+    <span class="h1">고객센터 관리</span>
+</div>
+
+<div class="wrap but_nav_box">
+    <div class="select_box">
+        <select id="category">
+            <option>All</option>
+            <option>Flower</option>
+            <option>Perfume</option>
+        </select>
+    </div>
+</div>
+
+<div id="customerService" class="wrap">
+    <!-- 테이블 영역 -->
+    <table>
+        <!-- 테이블 헤드 영역 -->
+        <thead>
+        <tr>
+            <th class="no">No</th>
+            <th class="title">Title</th>
+            <th class="category">Category</th>
+            <th class="date">Date</th>
+            <th class="view">View</th>
+        </tr>
+        </thead>
+        <!-- 테이블 바디 영역 -->
+        <tbody th:each="customerService : ${customerServices}" class="body">
+        <!-- 요약 내용 영역 -->
+        <tr class="customerService-header">
+            <td class="no" th:text="${customerService.id}"></td>
+            <td class="title" th:text="${customerService.title}"></td>
+            <td class="category" th:text="${customerService.category}"></td>
+            <td class="date" th:text="${customerService.createdAt}"></td>
+            <td class="view" th:text="${customerService.view}"></td>
+        </tr>
+        <!-- label 'for' 속성 값은 연결하고자 하는 폼 컨트롤의 id 값과 동일해야 함. -->
+        <!-- 본문 영역 -->
+        <tr class="customerService-content">
+            <td colspan="5">
+                <div class="content">
+                    <div class="content_left">
+                        <label for="ask_title">Title</label><br />
+                        <label for="ask_category">Category</label><br />
+                        <label for="ask_userName">Name</label><br />
+                        <label for="ask_email">Email</label><br />
+                        <label for="ask_detail">Detail</label><br />
+                        <label for="ask_answer">Answer</label><br />
+                    </div>
+                    <div class="content_center">
+                        <input type="text" name="ask_title" id="ask_title" readonly
+                               th:value="${customerService.title}">
+                        <input type="text" name="ask_category" id="ask_category" readonly
+                               th:value="${customerService.category}">
+                        <input type="text" name="ask_userName" id="ask_userName" readonly
+                               th:value="${customerService.userName}">
+                        <input type="text" name="ask_category" id="ask_email" readonly
+                               th:value="${customerService.email}">
+                        <textarea type="text" name="ask_detail" id="ask_detail" rows="3" cols="20" readonly
+                                  th:text="${customerService.detail}"></textarea>
+                        <textarea type="text" name="ask_answer" id="ask_answer" rows="3" cols="20"
+                                  th:text="${customerService.answer}"></textarea>
+                    </div>
+                    <div class="content_right">
+                        <img src="../../images/customerImg.jpg"><br>
+                        <label for="ask_img_file">Image</label>
+                        <input type="text" name="ask_img_file" id="ask_img_file" readonly
+                               th:value="${customerService.fileName}">
+                        <button type="button" class="btn btn-light">Download</button>
+                    </div>
+                </div>
+                <div class="content_btn">
+                    <button type="button" class="btn btn-success save-btn">Save Answer</button>
+                    <button type="button" class="btn btn-dark send-btn">Send Answer</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <ul>
+            <li><a th:href="@{${'customerService?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{${'customerService?page=' + pageNum}}" th:text="${pageNum + 1}"
+                   th:class="${pageNum == currentPage ? 'active' : ''}"></a>
+            </li>
+            <li><a th:href="@{${'customerService?page=' + (currentPage + 1)}}"
+                   th:if="${currentPage < totalPages - 1}">Next</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+
+</html>

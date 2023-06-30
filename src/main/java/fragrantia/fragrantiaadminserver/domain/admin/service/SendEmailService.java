@@ -32,6 +32,15 @@ public class SendEmailService {
         return dto;
     }
 
+    public MailDto sendAnswer(String userName, String email, String answer) {
+        MailDto dto = new MailDto();
+        dto.setAddress(email);
+        dto.setTitle("안녕하세요, " + userName + "님. Fragrantia 고객센터입니다.");
+        dto.setMessage(answer);
+        System.out.println(dto.getAddress() + ", " + dto.getTitle() + ", " + dto.getMessage());
+        return dto;
+    }
+
     private void updatePassword(String str, String email) {
         String pw = passwordEncoder.encode(str);
         String id = adminMapper.getByEmail(email).getEmail();

@@ -5,9 +5,7 @@ import fragrantia.fragrantiaadminserver.controller.dto.store.StoreCreateDto;
 import fragrantia.fragrantiaadminserver.controller.dto.store.StoreDeleteDto;
 import fragrantia.fragrantiaadminserver.controller.dto.store.StoreUpdateDto;
 import fragrantia.fragrantiaadminserver.domain.store.service.StoreService;
-import fragrantia.fragrantiaadminserver.security.DefaultFragrantiaAdmin;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +29,8 @@ public class StoreController {
 
     @GetMapping
     public String getStore(Model model,
-                            @RequestParam(defaultValue = "0") int page,
-                            @RequestParam(defaultValue = "10") int size) {
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size) {
         int offset = page * size;
         List<GetStoresDto> stores = storeService.getStoresWithPaging(offset, size);
         int totalCount = storeService.getTotalStoreCount();

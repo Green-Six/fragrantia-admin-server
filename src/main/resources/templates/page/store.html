@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org ">
+    xsi:schemaLocation="http://www.thymeleaf.org ">
 
 <head>
     <title>Fragrantia Admin Store</title>
@@ -26,334 +26,141 @@
     <script src="https://kit.fontawesome.com/047a434073.js" crossorigin="anonymous"></script>
     <script src="../../js/jquery.min.js"></script>
     <script src="../../js/buttonNav.js"></script>
-    <script>
-        // colspan size 조절 함수
-        let reColspan = function () {
-            if ($(window).width() <= 425) {
-                // colspan 속성이 6인 td 요소를 찾아서
-                $("tr.store-content td[colspan='6']").each(function () {
-                    // colspan 속성 값을 4으로 변경
-                    $(this).attr("colspan", "4");
-                });
-            }
-            // 데스크탑 버전인 경우
-            else {
-                // colspan 속성이 4인 td 요소를 찾아서
-                $("tr.store-content td[colspan='4']").each(function () {
-                    // colspan 속성 값을 6으로 변경
-                    $(this).attr("colspan", "6");
-                });
-            }
-        }
-
-        $(document).ready(function () {
-            // 게시물 생성 모달 버튼 동작
-            const modalSubmit = document.getElementById("modal-submit");
-
-            modalSubmit.addEventListener("click", () => {
-                const json = {
-                    latitude: $('#create_latitude').val(),
-                    longitude: $('#create_longitude').val(),
-                    zip: $('#create_zip').val(),
-                    address: $('#create_addr').val(),
-                    name: $('#create_name').val(),
-                    detail: $('#create_detail').val(),
-                    telephone: $('#create_tel').val(),
-                    file: $('#photo').val()
-                };
-
-                console.log(json);
-
-                $.ajax({
-                    url: "/store/create",
-                    type: "POST",
-                    contentType: 'application/json',
-                    data: JSON.stringify(json),
-                    success: function () {
-                        alert("매장 정보가 성공적으로 등록되었습니다.");
-                        location.reload;
-                    },
-                    error: function () {
-                        alert("simpleWithObject err");
-                    }
-                });
-                modal.style.display = "none";
-            });
-
-            $('.store-header').click(function () {
-                var content = $(this).closest('tr').next('.store-content');
-                content.fadeToggle('slow'); // 클릭한 요소 열기/닫기
-                $('.store-content').not(content).fadeOut(); // 이미 열려있는 요소 닫기
-            });
-            $('input[type="checkbox"]').click(function (event) {
-                event.stopPropagation(); // 클릭 이벤트 전파 방지
-            });
-
-            // 게시물 삭제 버튼 동작
-            document.addEventListener("click", function (event) {
-                if (event.target.classList.contains("minus-button")) {
-                    var checkedBoxes = $('input[type="checkbox"]#chk:checked');
-                    console.log(checkedBoxes);
-                    var idList = [];
-
-                    $(checkedBoxes).each(function () {
-                        var id = $(this)
-                            .closest('.store-header')
-                            .find('.no')
-                            .text();
-                        if (id) { // id가 존재하는지 확인
-                            idList.push(id);
-                        } else {
-                            console.log('id가 없음.')
-                        }
-                    });
-
-                    if (checkedBoxes.length === 0) {
-                        alert("삭제할 게시글을 체크해주세요!")
-                        return;
-                    } else {
-                        var json = {
-                            ids: idList
-                        };
-                        console.log(json);
-
-                        $.ajax({
-                            url: "/store",
-                            type: "DELETE",
-                            contentType: 'application/json',
-                            data: JSON.stringify(json),
-                            success: function () {
-                                alert("삭제 성공");
-                                location.reload;
-                            },
-                            error: function () {
-                                alert("simpleWithObject err");
-                            }
-                        });
-                    };
-                }
-            });
-
-            //시작 할때 colspan 화면 크기에 맞게 설정
-            reColspan()
-
-            // chkAll을 클릭했을 때
-            $("#chkAll").click(function () {
-                if ($("#chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-                else $("input[name=chk]").prop("checked", false);
-            });
-            // name이 chk인 input 태그를 클릭
-            $("input[name=chk]").click(function () {
-                var total = $("input[name=chk]").length;
-                var checked = $("input[name=chk]:checked").length;
-
-                // total 값이 checked의 값와 같지 않으면 id가 chkAll인 객체의 checked 속성을 false로 바꿈.
-                // 그게 아니면 checked 속성을 true로 바꿈.
-                if (total != checked) $("#chkAll").prop("checked", false);
-                else $("#chkAll").prop("checked", true);
-            });
-
-            // 수정버튼 동작
-            const editBtns = document.querySelectorAll('.edit-btn');
-            const storeTextElements = document.querySelectorAll('.store_text');
-
-            editBtns.forEach((editBtn) => {
-                const storeId = document.querySelector('.store-header .no').textContent;
-
-                editBtn.addEventListener('click', () => {
-                    storeTextElements.forEach((storeTextElement) => {
-                        storeTextElement.classList.add('editable');
-                        storeTextElement.removeAttribute('readonly');
-                    });
-
-                    editBtn.classList.add('hide');
-
-                    const saveBtn = document.createElement('button');
-                    saveBtn.type = 'button';
-                    saveBtn.className = 'btn btn-primary';
-                    saveBtn.innerText = 'Save';
-
-                    saveBtn.addEventListener('click', () => {
-                        storeTextElements.forEach((storeTextElement) => {
-                            storeTextElement.classList.remove('editable');
-                            storeTextElement.setAttribute('readonly', '');
-                        });
-
-                        const json = {
-                            id: storeId,
-                            latitude: $('#store_latitude').val(),
-                            longitude: $('#store_longitude').val(),
-                            zip: $('#store_zip').val(),
-                            address: $('#store_addr').val(),
-                            name: $('#store_name').val(),
-                            detail: $('#store_detail').val(),
-                            telephone: $('#store_tel').val(),
-                            file: $('#store_file_name').val()
-                        };
-
-                        console.log(json);
-
-                        $.ajax({
-                            url: "/store/update",
-                            type: "POST",
-                            contentType: 'application/json',
-                            data: JSON.stringify(json),
-                            success: function () {
-                                alert("수정되었습니다.")
-                                location.reload;
-                            },
-                            error: function () {
-                                alert("simpleWithObject err");
-                            }
-                        });
-
-                        saveBtn.remove();
-                        editBtn.classList.remove('hide');
-                    });
-
-                    editBtn.parentNode.insertBefore(saveBtn, editBtn.nextSibling);
-                });
-            });
-        });
-        //화면 바꿀 때 colspan 화면 크기에 맞게 설정
-        $(window).resize(
-            reColspan
-        );
-    </script>
+    <script src="../../js/store.js"></script>
 </head>
 
 <body>
-<div id="header"></div>
-<div class="wrap">
-    <span class="h1">매장 관리</span>
-</div>
-
-<div class="wrap but_nav_box">
-    <div class="button-nav">
-        <a href="#"><i class="plus-button fa-regular fa-square-plus fa-xl" style="color: #000000;"></i></a>
-        <a href="#"><i class="minus-button fa-regular fa-square-minus fa-xl" style="color: #000000;"></i></a>
+    <div id="header"></div>
+    <div class="wrap">
+        <span class="h1">매장 관리</span>
     </div>
-</div>
 
-<div id="store" class="wrap">
-
-    <div id="modal" class="create-modal" style="display: none">
-        <div class="create-modal-content">
-            <h2>New store</h2>
-            <form>
-                <label for="create_name">매장 이름</label><br />
-                <input type="text" name="create_name" id="create_name"><br />
-
-                <label for="create_tel">전화번호</label><br />
-                <input type="tel" name="create_tel" id="create_tel"><br />
-
-                <label for="create_addr">주소</label><br />
-                <input type="text" name="create_addr" id="create_addr"><br />
-
-                <label for="create_zip">우편번호</label><br />
-                <input type="number" name="create_zip" id="create_zip"><br />
-
-                <label for="create_latitude">위도</label><br />
-                <input type="number" name="create_latitude" id="create_latitude"><br />
-
-                <label for="create_longitude">경도</label><br />
-                <input type="number" name="create_longitude" id="create_longitude"><br />
-
-                <label for="create_detail">상세 설명</label><br />
-                <textarea name="create_detail" id="create_detail"></textarea><br />
-
-                <label for="photo">사진</label>
-                <input type="file" id="photo" name="photo"><br>
-
-                <button id="modal-submit" type="submit">작성</button>
-                <button id="modal-close">취소</button>
-            </form>
+    <div class="wrap but_nav_box">
+        <div class="button-nav">
+            <a href="#"><i class="plus-button fa-regular fa-square-plus fa-xl" style="color: #000000;"></i></a>
+            <a href="#"><i class="minus-button fa-regular fa-square-minus fa-xl" style="color: #000000;"></i></a>
         </div>
     </div>
 
-    <!-- 테이블 영역 -->
-    <table>
-        <!-- 헤더 -->
-        <thead>
-        <tr>
-            <th class="check"><input type="checkbox" name="chkAll" id="chkAll" /></th>
-            <th class="no">NO</th>
-            <th class="title">매장이름</th>
-            <th class="tel">전화번호</th>
-            <th class="addr">주소</th>
-        </tr>
-        </thead>
+    <div id="store" class="wrap">
 
-        <!-- 본문 -->
-        <tbody th:each="store : ${stores}">
-        <!-- 요약 -->
-        <tr class="store-header">
-            <td class="check"><input type="checkbox" name="chk" id="chk" /></td>
-            <td class="no" th:text="${store.id}"></td>
-            <td class="title" th:text="${store.name}"></td>
-            <td class="tel" th:text="${store.telephone}"></td>
-            <td class="addr" th:text="${store.address}"></td>
-        </tr>
-        <!-- 상세 -->
-        <tr class="store-content">
-            <td colspan="5">
-                <div class="content">
+        <div id="modal" class="create-modal" style="display: none">
+            <div class="create-modal-content">
+                <h2>New store</h2>
+                <form>
+                    <label for="create_name">매장 이름</label><br />
+                    <input type="text" name="create_name" id="create_name"><br />
 
-                    <label for="store_name">매장 이름</label><br />
-                    <input type="text" name="store_name" id="store_name" class="store_text" readonly
-                           th:value="${store.name}"><br />
+                    <label for="create_tel">전화번호</label><br />
+                    <input type="tel" name="create_tel" id="create_tel"><br />
 
-                    <label for="store_tel">전화번호</label><br />
-                    <input type="tel" name="store_tel" id="store_tel" class="store_text" readonly
-                           th:value="${store.telephone}"><br />
+                    <label for="create_addr">주소</label><br />
+                    <input type="text" name="create_addr" id="create_addr"><br />
 
-                    <label for="store_addr">주소</label><br />
-                    <input type="text" name="store_addr" id="store_addr" class="store_text" readonly
-                           th:value="${store.address}"><br />
+                    <label for="create_zip">우편번호</label><br />
+                    <input type="number" name="create_zip" id="create_zip"><br />
 
-                    <label for="store_zip">우편번호</label><br />
-                    <input type="number" name="store_zip" id="store_zip" class="store_text" readonly
-                           th:value="${store.zip}"><br />
+                    <label for="create_latitude">위도</label><br />
+                    <input type="number" name="create_latitude" id="create_latitude"><br />
 
-                    <label for="store_latitude">위도</label><br />
-                    <input type="number" name="store_latitude" id="store_latitude" class="store_text" readonly
-                           th:value="${store.latitude}"><br />
+                    <label for="create_longitude">경도</label><br />
+                    <input type="number" name="create_longitude" id="create_longitude"><br />
 
-                    <label for="store_longitude">경도</label><br />
-                    <input type="number" name="store_longitude" id="store_longitude" class="store_text" readonly
-                           th:value="${store.longitude}"><br />
+                    <label for="create_detail">상세 설명</label><br />
+                    <textarea name="create_detail" id="create_detail"></textarea><br />
 
-                    <label for="store_detail">상세 설명</label><br />
-                    <textarea name="store_detail" id="store_detail" class="store_text" readonly
-                              th:text="${store.detail}"></textarea><br />
+                    <label for="photo">사진</label>
+                    <input type="file" id="photo" name="photo"><br>
 
-                    <label class="labelLabel">파일</label><br />
+                    <button id="modal-submit" type="submit">작성</button>
+                    <button id="modal-close">취소</button>
+                </form>
+            </div>
+        </div>
 
-                    <label for="store_file_name" class="fileUpload">UPLOAD</label>
-                    <input type="file" name="store_file_name" id="store_file_name" disabled="true"
-                           th:value="${store.file}"><br />
+        <!-- 테이블 영역 -->
+        <table>
+            <!-- 헤더 -->
+            <thead>
+                <tr>
+                    <th class="check"><input type="checkbox" name="chkAll" id="chkAll" /></th>
+                    <th class="no">NO</th>
+                    <th class="title">매장이름</th>
+                    <th class="tel">전화번호</th>
+                    <th class="addr">주소</th>
+                </tr>
+            </thead>
 
-                </div>
-                <div class="content_btn">
-                    <button type="button" class="btn btn-dark edit-btn">Edit</button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
+            <!-- 본문 -->
+            <tbody th:each="store : ${stores}">
+                <!-- 요약 -->
+                <tr class="store-header">
+                    <td class="check"><input type="checkbox" name="chk" id="chk" /></td>
+                    <td class="no" th:text="${store.id}"></td>
+                    <td class="title" th:text="${store.name}"></td>
+                    <td class="tel" th:text="${store.telephone}"></td>
+                    <td class="addr" th:text="${store.address}"></td>
+                </tr>
+                <!-- 상세 -->
+                <tr class="store-content">
+                    <td colspan="5">
+                        <div class="content">
 
-    </table>
-    <div class="pagination">
-        <ul>
-            <li><a th:href="@{${'store?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
-            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
-                <a th:href="@{${'store?page=' + pageNum}}" th:text="${pageNum + 1}"
-                   th:class="${pageNum == currentPage ? 'active' : ''}"></a>
-            </li>
-            <li><a th:href="@{${'store?page=' + (currentPage + 1)}}"
-                   th:if="${currentPage < totalPages - 1}">Next</a></li>
-        </ul>
+                            <label for="store_name">매장 이름</label><br />
+                            <input type="text" name="store_name" id="store_name" class="store_text" readonly
+                                th:value="${store.name}"><br />
+
+                            <label for="store_tel">전화번호</label><br />
+                            <input type="tel" name="store_tel" id="store_tel" class="store_text" readonly
+                                th:value="${store.telephone}"><br />
+
+                            <label for="store_addr">주소</label><br />
+                            <input type="text" name="store_addr" id="store_addr" class="store_text" readonly
+                                th:value="${store.address}"><br />
+
+                            <label for="store_zip">우편번호</label><br />
+                            <input type="number" name="store_zip" id="store_zip" class="store_text" readonly
+                                th:value="${store.zip}"><br />
+
+                            <label for="store_latitude">위도</label><br />
+                            <input type="number" name="store_latitude" id="store_latitude" class="store_text" readonly
+                                th:value="${store.latitude}"><br />
+
+                            <label for="store_longitude">경도</label><br />
+                            <input type="number" name="store_longitude" id="store_longitude" class="store_text" readonly
+                                th:value="${store.longitude}"><br />
+
+                            <label for="store_detail">상세 설명</label><br />
+                            <textarea name="store_detail" id="store_detail" class="store_text" readonly
+                                th:text="${store.detail}"></textarea><br />
+
+                            <label class="labelLabel">파일</label><br />
+
+                            <label for="store_file_name" class="fileUpload">UPLOAD</label>
+                            <input type="file" name="store_file_name" id="store_file_name" disabled="true"
+                                th:value="${store.file}"><br />
+
+                        </div>
+                        <div class="content_btn">
+                            <button type="button" class="btn btn-dark edit-btn">Edit</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div class="pagination">
+            <ul>
+                <li><a th:href="@{${'store?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
+                <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+                    <a th:href="@{${'store?page=' + pageNum}}" th:text="${pageNum + 1}"
+                        th:class="${pageNum == currentPage ? 'active' : ''}"></a>
+                </li>
+                <li><a th:href="@{${'store?page=' + (currentPage + 1)}}"
+                        th:if="${currentPage < totalPages - 1}">Next</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 </body>
 
 </html>
