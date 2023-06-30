@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org ">
+    xsi:schemaLocation="http://www.thymeleaf.org ">
 
 <head>
     <title>Fragrantia Admin Notice</title>
@@ -146,60 +146,57 @@
             });
 
             // 수정버튼 동작
-            const editBtns = document.querySelectorAll('.edit-btn');
+            $('.edit-btn').click(function () {
+                var editBtn = $(this);
+                var noticeContent = editBtn.closest('.notice-content');
+                var noticeId = noticeContent.prev('.notice-header').find('.no').text();
+                var noticeTitle = noticeContent.find('[name="notice-title"]');
+                var noticeTextarea = noticeContent.find('[name="notice-textarea"]');
 
-            editBtns.forEach((editBtn) => {
-                const noticeTitle = editBtn.closest('.notice-content').querySelector('[name="notice-title"]');
-                const noticeTextarea = editBtn.closest('.notice-content').querySelector('[name="notice-textarea"]');
-                const noticeId = document.querySelector('.notice-header .no').textContent;
+                noticeTitle.addClass('editable').removeAttr('readonly');
+                noticeTextarea.addClass('editable').removeAttr('readonly');
 
-                editBtn.addEventListener('click', () => {
-                    noticeTitle.classList.add('editable');
-                    noticeTitle.removeAttribute('readonly');
-                    noticeTextarea.classList.add('editable');
-                    noticeTextarea.removeAttribute('readonly');
+                editBtn.hide();
 
-                    editBtn.classList.add('hide');
+                const saveBtn = document.createElement('button');
+                saveBtn.type = 'button';
+                saveBtn.className = 'btn btn-primary';
+                saveBtn.innerText = 'Save';
 
-                    const saveBtn = document.createElement('button');
-                    saveBtn.type = 'button';
-                    saveBtn.className = 'btn btn-primary';
-                    saveBtn.innerText = 'Save';
+                saveBtn.addEventListener('click', () => {
+                    noticeTitle.removeClass('editable').prop('readonly', true);
+                    noticeTextarea.removeClass('editable').prop('readonly', true);
 
-                    saveBtn.addEventListener('click', () => {
-                        noticeTitle.classList.remove('editable');
-                        noticeTitle.setAttribute('readonly', '');
-                        noticeTextarea.classList.remove('editable');
-                        noticeTextarea.setAttribute('readonly', '');
+                    var updatedTitle = noticeContent.find('.notice-title').val();
+                    var updatedContent = noticeContent.find('.notice-textarea').val();
 
-                        const json = {
-                            id: noticeId,
-                            title: $('.notice-title').val(),
-                            content: $('.notice-textarea').val(),
-                        };
+                    const json = {
+                        id: noticeId,
+                        title: updatedTitle,
+                        content: updatedContent
+                    };
 
-                        console.log(json);
+                    console.log(json);
 
-                        $.ajax({
-                            url: "/notice/update",
-                            type: "POST",
-                            contentType: 'application/json',
-                            data: JSON.stringify(json),
-                            success: function () {
-                                alert("수정되었습니다.")
-                                location.reload();
-                            },
-                            error: function () {
-                                alert("simpleWithObject err");
-                            }
-                        });
-
-                        saveBtn.remove();
-                        editBtn.classList.remove('hide');
+                    $.ajax({
+                        url: "/notice/update",
+                        type: "POST",
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+                        success: function () {
+                            alert("수정되었습니다.")
+                            location.reload();
+                        },
+                        error: function () {
+                            alert("simpleWithObject err");
+                        }
                     });
 
-                    editBtn.parentNode.insertBefore(saveBtn, editBtn.nextSibling);
+                    saveBtn.remove();
+                    editBtn.show();
                 });
+
+                editBtn.after(saveBtn);
             });
         });
         //화면 바꿀 때 colspan 화면 크기에 맞게 설정
@@ -210,100 +207,99 @@
 </head>
 
 <body>
-<div id="header"></div>
-<div class="wrap">
-    <span class="h1">공지사항 관리</span>
-</div>
-
-<div class="wrap but_nav_box">
-    <div class="button-nav">
-        <a href="#"><i class="plus-button fa-regular fa-square-plus fa-xl" style="color: #000000;"></i></a>
-        <a href="#"><i class="minus-button fa-regular fa-square-minus fa-xl" style="color: #000000;"></i></a>
+    <div id="header"></div>
+    <div class="wrap">
+        <span class="h1">공지사항 관리</span>
     </div>
-    <div class="select_box">
-        <select id="category">
-            <option>All</option>
-            <option>Flower</option>
-            <option>Perfume</option>
-        </select>
-    </div>
-</div>
 
-<div id="notice" class="wrap">
-
-    <div id="modal" class="create-modal" style="display: none">
-        <div class="create-modal-content">
-            <h2>New Notice</h2>
-            <form>
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title"><br>
-
-                <label for="content">내용</label>
-                <textarea id="content" name="content"></textarea><br>
-
-                <button id="modal-submit" type="submit">작성</button>
-                <button id="modal-close">취소</button>
-            </form>
+    <div class="wrap but_nav_box">
+        <div class="button-nav">
+            <a href="#"><i class="plus-button fa-regular fa-square-plus fa-xl" style="color: #000000;"></i></a>
+            <a href="#"><i class="minus-button fa-regular fa-square-minus fa-xl" style="color: #000000;"></i></a>
+        </div>
+        <div class="select_box">
+            <select id="category">
+                <option>All</option>
+                <option>Flower</option>
+                <option>Perfume</option>
+            </select>
         </div>
     </div>
 
-    <!-- 테이블 영역 -->
-    <table>
-        <!-- 테이블 헤드 영역 -->
-        <thead>
-        <tr>
-            <th class="check"><input type="checkbox" name="chkAll" id="chkAll" /></th>
-            <th class="no">No</th>
-            <th class="title">Title</th>
-            <th class="admin">Admin</th>
-            <th class="date">Date</th>
-            <th class="view">View</th>
-        </tr>
-        </thead>
+    <div id="notice" class="wrap">
 
-        <!-- 테이블 바디 영역 -->
-        <tbody th:each="notice : ${notices}">
-        <!-- 요약 내용 영역 -->
-        <tr class="notice-header">
-            <td class="check"><input type="checkbox" name="chk" id="chk" /></td>
-            <td class="no" th:text="${notice.id}"></td>
-            <td class="title" th:text="${notice.title}"></td>
-            <td class="admin" th:text="${notice.name}"></td>
-            <td class="date" th:text="${notice.createdAt}"></td>
-            <td class="view" th:text="${notice.view}"></td>
-        </tr>
+        <div id="modal" class="create-modal" style="display: none">
+            <div class="create-modal-content">
+                <h2>New Notice</h2>
+                <form>
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title"><br>
 
-        <!-- 본문 영역 -->
-        <tr class="notice-content">
-            <td colspan="6">
-                <div class="content">
+                    <label for="content">내용</label>
+                    <textarea id="content" name="content"></textarea><br>
+
+                    <button id="modal-submit" type="submit">작성</button>
+                    <button id="modal-close">취소</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 테이블 영역 -->
+        <table>
+            <!-- 테이블 헤드 영역 -->
+            <thead>
+                <tr>
+                    <th class="check"><input type="checkbox" name="chkAll" id="chkAll" /></th>
+                    <th class="no">No</th>
+                    <th class="title">Title</th>
+                    <th class="admin">Admin</th>
+                    <th class="date">Date</th>
+                    <th class="view">View</th>
+                </tr>
+            </thead>
+
+            <!-- 테이블 바디 영역 -->
+            <tbody th:each="notice : ${notices}">
+                <!-- 요약 내용 영역 -->
+                <tr class="notice-header">
+                    <td class="check"><input type="checkbox" name="chk" id="chk" /></td>
+                    <td class="no" th:text="${notice.id}"></td>
+                    <td class="title" th:text="${notice.title}"></td>
+                    <td class="admin" th:text="${notice.name}"></td>
+                    <td class="date" th:text="${notice.createdAt}"></td>
+                    <td class="view" th:text="${notice.view}"></td>
+                </tr>
+                <!-- 본문 영역 -->
+                <tr class="notice-content">
+                    <td colspan="6">
+                        <div class="content">
                             <textarea name="notice-title" class="notice-title" rows="1" cols="100" readonly
-                                      th:text="${notice.title}"></textarea>
-                    <textarea name="notice-textarea" class="notice-textarea" rows="6" cols="100" readonly
-                              th:text="${notice.content}"></textarea>
-                </div>
-                <div class="content_btn">
-                    <button type="button" class="btn btn-dark edit-btn">Edit</button>
-                </div>
-            </td>
-        </tr>
+                                th:text="${notice.title}"></textarea>
+                            <textarea name="notice-textarea" class="notice-textarea" rows="6" cols="100" readonly
+                                th:text="${notice.content}"></textarea>
+                        </div>
+                        <div class="content_btn">
+                            <button type="button" class="btn btn-dark edit-btn">Edit</button>
+                        </div>
+                    </td>
+                </tr>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <div class="pagination">
-        <ul>
-            <li><a th:href="@{${'notice?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
-            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
-                <a th:href="@{${'notice?page=' + pageNum}}" th:text="${pageNum + 1}"
-                   th:class="${pageNum == currentPage ? 'active' : ''}"></a>
-            </li>
-            <li><a th:href="@{${'notice?page=' + (currentPage + 1)}}"
-                   th:if="${currentPage < totalPages - 1}">Next</a></li>
-        </ul>
+        <div class="pagination">
+            <ul>
+                <li><a th:href="@{${'notice?page=' + (currentPage - 1)}}" th:if="${currentPage > 0}">Prev</a></li>
+                <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+                    <a th:href="@{${'notice?page=' + pageNum}}" th:text="${pageNum + 1}"
+                        th:class="${pageNum == currentPage ? 'active' : ''}"></a>
+                </li>
+                <li><a th:href="@{${'notice?page=' + (currentPage + 1)}}"
+                        th:if="${currentPage < totalPages - 1}">Next</a></li>
+            </ul>
+        </div>
+
     </div>
-
-</div>
 
 </body>
 
