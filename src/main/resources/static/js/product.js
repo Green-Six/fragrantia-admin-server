@@ -1,8 +1,8 @@
 // colspan size 조절 함수
 let reColspan = function () {
     if ($(window).width() <= 425) {
-        // colspan 속성이 6인 td 요소를 찾아서
-        $("tr.store-content td[colspan='6']").each(function () {
+        // colspan 속성이 7인 td 요소를 찾아서
+        $("tr.product-content td[colspan='7']").each(function () {
             // colspan 속성 값을 4으로 변경
             $(this).attr("colspan", "4");
         });
@@ -10,9 +10,9 @@ let reColspan = function () {
     // 데스크탑 버전인 경우
     else {
         // colspan 속성이 4인 td 요소를 찾아서
-        $("tr.store-content td[colspan='4']").each(function () {
-            // colspan 속성 값을 6으로 변경
-            $(this).attr("colspan", "6");
+        $("tr.product-content td[colspan='4']").each(function () {
+            // colspan 속성 값을 7으로 변경
+            $(this).attr("colspan", "7");
         });
     }
 }
@@ -22,27 +22,45 @@ $(document).ready(function () {
     const modalSubmit = document.getElementById("modal-submit");
 
     modalSubmit.addEventListener("click", () => {
-        const json = {
-            latitude: $('#create_latitude').val(),
-            longitude: $('#create_longitude').val(),
-            zip: $('#create_zip').val(),
-            address: $('#create_addr').val(),
-            name: $('#create_name').val(),
-            detail: $('#create_detail').val(),
-            telephone: $('#create_tel').val(),
-            file: $('#photo').val()
-        };
+        var formData = new FormData();
+        var inputFile = $("input[id=create_file]");
+        var file = inputFile[0].files[0];
+        var imgUrl;
 
-        console.log(json);
+        formData.append("file", file);
 
         $.ajax({
-            url: "/store/create",
+            url: "/product/upload",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                alert("상품이 성공적으로 등록되었습니다.");
+                imgUrl = response;
+                console.log("이미지 URL: ", imgUrl);
+            },
+            error: function () {
+                alert("simpleWithObject err");
+            }
+        });
+
+        const json = {
+            name: $('#create_name').val(),
+            price: $('#create_price').val(),
+            category: $('#create_category').val(),
+            detail: $('#create_detail').val(),
+            imgUrl: imgUrl
+        };
+
+        $.ajax({
+            url: "/product/create",
             type: "POST",
             contentType: 'application/json',
             data: JSON.stringify(json),
             success: function () {
-                alert("매장 정보가 성공적으로 등록되었습니다.");
-                location.reload;
+                alert("상품이 성공적으로 등록되었습니다.");
+                // location.reload();
             },
             error: function () {
                 alert("simpleWithObject err");
@@ -51,10 +69,10 @@ $(document).ready(function () {
         modal.style.display = "none";
     });
 
-    $('.store-header').click(function () {
-        var content = $(this).closest('tr').next('.store-content');
+    $('.product-header').click(function () {
+        var content = $(this).closest('tr').next('.product-content');
         content.fadeToggle('slow'); // 클릭한 요소 열기/닫기
-        $('.store-content').not(content).fadeOut(); // 이미 열려있는 요소 닫기
+        $('.product-content').not(content).fadeOut(); // 이미 열려있는 요소 닫기
     });
     $('input[type="checkbox"]').click(function (event) {
         event.stopPropagation(); // 클릭 이벤트 전파 방지
@@ -65,11 +83,12 @@ $(document).ready(function () {
         if (event.target.classList.contains("minus-button")) {
             var checkedBoxes = $('input[type="checkbox"]#chk:checked');
             console.log(checkedBoxes);
+
             var idList = [];
 
             $(checkedBoxes).each(function () {
                 var id = $(this)
-                    .closest('.store-header')
+                    .closest('.product-header')
                     .find('.no')
                     .text();
                 if (id) { // id가 존재하는지 확인
@@ -89,13 +108,13 @@ $(document).ready(function () {
                 console.log(json);
 
                 $.ajax({
-                    url: "/store",
+                    url: "/product",
                     type: "DELETE",
                     contentType: 'application/json',
                     data: JSON.stringify(json),
                     success: function () {
-                        alert("삭제 성공");
-                        location.reload;
+                        alert("게시물을 삭제했습니다.");
+                        location.reload();
                     },
                     error: function () {
                         alert("simpleWithObject err");
@@ -108,12 +127,14 @@ $(document).ready(function () {
     //시작 할때 colspan 화면 크기에 맞게 설정
     reColspan()
 
-    // chkAll을 클릭했을 때
+    // chkAll을 클릭했을 때, chkAll이 체크되어 있으면, name이 chk인 input 태그의 checked 속성을 true로 설정
+    // >> 전체 체크 박스를 체크하면 모든 체크 박스 체크
     $("#chkAll").click(function () {
         if ($("#chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
         else $("input[name=chk]").prop("checked", false);
     });
-    // name이 chk인 input 태그를 클릭
+    // name이 chk인 input 태그를 클릭하면, name이 chk인 요소의 개수를 total 변수에 저장.
+    // name이 chk인 요소 중에 checked 되어 있는 요소의 개수를 checked 개수에 저장.
     $("input[name=chk]").click(function () {
         var total = $("input[name=chk]").length;
         var checked = $("input[name=chk]:checked").length;
@@ -125,18 +146,16 @@ $(document).ready(function () {
     });
 
     // 수정버튼 동작
-    const storeTextElements = document.querySelectorAll('.store_text');
+    const productTextElements = document.querySelectorAll('.product_text');
 
     $('.edit-btn').click(function () {
-
         var editBtn = $(this);
-        var storeContent = editBtn.closest('.store-content');
-        var storeId = storeContent.prev('.store-header').find('.no').text();
-        console.log("id는 " + storeId + "입니다.")
+        var productContent = editBtn.closest('.product-content');
+        var productId = productContent.prev('.product-header').find('.no').text();
 
-        storeTextElements.forEach((storeTextElement) => {
-            storeTextElement.classList.add('editable');
-            storeTextElement.removeAttribute('readonly');
+        productTextElements.forEach((productTextElement) => {
+            productTextElement.classList.add('editable');
+            productTextElement.removeAttribute('readonly');
         });
 
         editBtn.hide();
@@ -147,42 +166,36 @@ $(document).ready(function () {
         saveBtn.innerText = 'Save';
 
         saveBtn.addEventListener('click', () => {
-            storeTextElements.forEach((storeTextElement) => {
-                storeTextElement.classList.remove('editable');
-                storeTextElement.setAttribute('readonly', '');
+            productTextElements.forEach((productTextElement) => {
+                productTextElement.classList.remove('editable');
+                productTextElement.setAttribute('readonly', '');
             });
 
-            var updatedLatitude = storeContent.find('#store_latitude').val();
-            var updatedLongitude = storeContent.find('#store_longitude').val();
-            var updatedZip = storeContent.find('#store_zip').val();
-            var updatedAddress = storeContent.find('#store_addr').val();
-            var updatedName = storeContent.find('#store_name').val();
-            var updatedDetail = storeContent.find('#store_detail').val();
-            var updatedTelephone = storeContent.find('#store_tel').val();
-            var updatedFile = storeContent.find('#store_file_name').val();
+            var updatedProductName = productContent.find('#item_name').val();
+            var updatedProductPrice = productContent.find('#item_price').val();
+            var updatedProductCategory = productContent.find('#item_category').val();
+            var updatedProductDetail = productContent.find('#item_detail').val();
+            var updatedProductFile = productContent.find('#item_file').val();
 
             const json = {
-                id: storeId,
-                latitude: updatedLatitude,
-                longitude: updatedLongitude,
-                zip: updatedZip,
-                address: updatedAddress,
-                name: updatedName,
-                detail: updatedDetail,
-                telephone: updatedTelephone,
-                file: updatedFile
+                id: productId,
+                name: updatedProductName,
+                price: updatedProductPrice,
+                category: updatedProductCategory,
+                detail: updatedProductDetail,
+                file: updatedProductFile
             };
 
             console.log(json);
 
             $.ajax({
-                url: "/store/update",
+                url: "/product/update",
                 type: "POST",
                 contentType: 'application/json',
                 data: JSON.stringify(json),
                 success: function () {
                     alert("수정되었습니다.")
-                    location.reload;
+                    location.reload();
                 },
                 error: function () {
                     alert("simpleWithObject err");
@@ -195,7 +208,10 @@ $(document).ready(function () {
 
         editBtn.after(saveBtn);
     });
+
+
 });
+
 //화면 바꿀 때 colspan 화면 크기에 맞게 설정
 $(window).resize(
     reColspan
