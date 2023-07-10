@@ -3,6 +3,7 @@ button,
 select {
   all: revert;
 }
+
 .check>input[type="checkbox"] {
   /* 모든 체크박스에 대한 스타일 적용 */
   width: 12px;
@@ -15,7 +16,7 @@ select {
   border-collapse: collapse;
   width: 100%;
   /* max-width: 900px; */
-  margin: 2px auto 0 auto;  
+  margin: 2px auto 0 auto;
   background-color: #fff;
   table-layout: auto;
 }
@@ -54,6 +55,7 @@ select {
   text-align: left;
   background-color: white;
 }
+
 /* =============== 인풋태그 배치 ============ */
 #product .product-content .content>label {
   display: inline-block;
@@ -63,27 +65,26 @@ select {
   display: inline-block;
 }
 
-textarea{
+textarea {
   width: 90%;
   height: 100px;
 }
-  .content.labelLabel{
-    display: block;
-  }
-  .content>.fileUpload{
-      display: inline-block;
-      padding: 0.5%;
-      background-color: rgb(216, 216, 216);
-      cursor: pointer;
-  }
+
+/* .content.labelLabel {
+  display: block;
+} */
+
+.content>.fileUpload {
+  display: inline-block;
+}
 
 .content input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }
 
 
@@ -166,7 +167,7 @@ textarea{
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .date,
   .view,
   .admin {

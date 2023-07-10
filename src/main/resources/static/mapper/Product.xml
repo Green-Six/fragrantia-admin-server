@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fragrantia.fragrantiaadminserver.domain.product.ProductMapper">
+
+    <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.product.Product" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO PRODUCT(name, price, category, detail, img_url AS imgUrl, created_at AS createdAt, admin_id AS adminId)
+        VALUES (
+        #{name},
+        #{price},
+        #{category},
+        #{detail},
+        #{imgUrl},
+        #{createdAt},
+        #{adminId}
+        )
+    </insert>
+
+    <select id="getProduct" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.product.Product">
+        SELECT id, admin_id, name, price, category, detail, img_url AS imgUrl, view, created_at AS createdAt
+        FROM PRODUCT
+        WHERE id=#{id}
+    </select>
+
+    <select id="getProductsWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.product.GetProductsDto">
+        SELECT p.id, p.admin_id AS adminId, a.name AS adminName, p.name, p.price, p.category, p.detail, p.img_url AS imgUrl, p.view, p.created_at AS createdAt
+        FROM PRODUCT p
+        INNER JOIN ADMIN a ON p.admin_id = a.id
+        ORDER BY p.id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getTotalProductCount" resultType="int">
+        SELECT COUNT(id) FROM PRODUCT
+    </select>
+
+    <update id="updateProduct" parameterType="fragrantia.fragrantiaadminserver.domain.product.Product">
+        UPDATE PRODUCT
+        SET name = #{name}, price = #{price}, category = #{category}, detail = #{detail}, img_url = #{imgUrl}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProduct" parameterType="fragrantia.fragrantiaadminserver.domain.product.Product">
+        DELETE
+        FROM PRODUCT
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
