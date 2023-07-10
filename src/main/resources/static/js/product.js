@@ -36,36 +36,37 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                alert("상품이 성공적으로 등록되었습니다.");
+                alert("이미지가 성공적으로 등록되었습니다.");
                 imgUrl = response;
                 console.log("이미지 URL: ", imgUrl);
+
+                const json = {
+                    name: $('#create_name').val(),
+                    price: $('#create_price').val(),
+                    category: $('#create_category').val(),
+                    detail: $('#create_detail').val(),
+                    imgUrl: imgUrl
+                };
+
+                $.ajax({
+                    url: "/product/create",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    success: function () {
+                        alert("상품이 성공적으로 등록되었습니다.");
+                        // location.reload();
+                    },
+                    error: function () {
+                        alert("상품 등록에 실패했습니다.");
+                    }
+                });
             },
             error: function () {
                 alert("simpleWithObject err");
             }
         });
 
-        const json = {
-            name: $('#create_name').val(),
-            price: $('#create_price').val(),
-            category: $('#create_category').val(),
-            detail: $('#create_detail').val(),
-            imgUrl: imgUrl
-        };
-
-        $.ajax({
-            url: "/product/create",
-            type: "POST",
-            contentType: 'application/json',
-            data: JSON.stringify(json),
-            success: function () {
-                alert("상품이 성공적으로 등록되었습니다.");
-                // location.reload();
-            },
-            error: function () {
-                alert("simpleWithObject err");
-            }
-        });
         modal.style.display = "none";
     });
 

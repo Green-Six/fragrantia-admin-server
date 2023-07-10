@@ -18,7 +18,7 @@ public class DomainProductService implements ProductService {
 
     @Override
     public Product create(Long adminId, String name, Long price, String category, String detail, String imgUrl) {
-        Product product = Product.create(name, price, category, detail, imgUrl, adminId);
+        Product product = Product.create(adminId, name, price, category, detail, imgUrl);
 
         productMapper.create(product);
 
@@ -39,7 +39,7 @@ public class DomainProductService implements ProductService {
     public void updateProduct(Long adminId, String name, Long price, String category, String detail, String file, Long id) {
         Product product = productMapper.getProduct(id);
 
-        product.update(name, price, category, detail, file, adminId);
+        product.update(adminId, name, price, category, detail, file);
 
         productMapper.updateProduct(product);
     }

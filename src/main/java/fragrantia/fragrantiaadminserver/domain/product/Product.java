@@ -31,7 +31,7 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    private Product(String name, Long price, String category, String detail, String imgUrl, Long adminId) {
+    private Product(Long adminId, String name, Long price, String category, String detail, String imgUrl) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -40,16 +40,16 @@ public class Product {
         this.adminId = adminId;
     }
 
-    public static Product create(String name, Long price, String category, String detail, String imgUrl, Long adminId) {
+    public static Product create(Long adminId, String name, Long price, String category, String detail, String imgUrl) {
         require(Strings.isNotBlank(name));
         require(price != null);
         require(Strings.isNotBlank(category));
         require(Strings.isNotBlank(detail));
 
-        return new Product(name, price, category, detail, imgUrl, adminId);
+        return new Product(adminId, name, price, category, detail, imgUrl);
     }
 
-    public void update(String name, Long price, String category, String detail, String imgUrl, Long adminId) {
+    public void update(Long adminId, String name, Long price, String category, String detail, String imgUrl) {
         this.name = name;
         this.price = price;
         this.category = category;

@@ -27,7 +27,7 @@ public class ProductController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public String upload(@RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
         return s3Uploader.upload(multipartFile, "static");
     }
 
@@ -35,8 +35,7 @@ public class ProductController {
     @ResponseBody
     public void create(
         @AuthenticationPrincipal DefaultFragrantiaAdmin admin,
-        @RequestBody ProductCreateDto.ProductCreateRequest req,
-        @RequestParam(value = "file", required = false) MultipartFile multipartFile
+        @RequestBody ProductCreateDto.ProductCreateRequest req
     ) throws IOException {
 
         productService.create(admin.getId(), req.getName(), req.getPrice(), req.getCategory(), req.getDetail(), req.getImgUrl());
