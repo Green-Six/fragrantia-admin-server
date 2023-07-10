@@ -5,13 +5,12 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.product.Product" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO PRODUCT(name, price, category, detail, img_url AS imgUrl, created_at AS createdAt, admin_id AS adminId)
+        INSERT INTO PRODUCT(name, price, category, detail, created_at, admin_id)
         VALUES (
         #{name},
         #{price},
         #{category},
         #{detail},
-        #{imgUrl},
         #{createdAt},
         #{adminId}
         )

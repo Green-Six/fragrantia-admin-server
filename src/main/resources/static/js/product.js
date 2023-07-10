@@ -22,31 +22,32 @@ $(document).ready(function () {
     const modalSubmit = document.getElementById("modal-submit");
 
     modalSubmit.addEventListener("click", () => {
-        var formData = new FormData();
-        var inputFile = $("input[id=create_file]");
-        var file = inputFile[0].files[0];
-        var imgUrl;
+        // var formData = new FormData();
+        // var inputFile = $("input[id=create_file]");
+        // var file = inputFile[0].files[0];
+        // var imgUrl;
 
-        formData.append("file", file);
+        // formData.append("file", file);
 
-        $.ajax({
-            url: "/product/upload",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                alert("이미지가 성공적으로 등록되었습니다.");
-                imgUrl = response;
-                console.log("이미지 URL: ", imgUrl);
+        // $.ajax({
+        //     url: "/product/upload",
+        //     type: "POST",
+        //     data: formData,
+        //     processData: false,
+        //     contentType: false,
+        //     success: function (response) {
+        //         alert("이미지가 성공적으로 등록되었습니다.");
+        //         imgUrl = response;
+        //         console.log("이미지 URL: ", imgUrl);
 
                 const json = {
                     name: $('#create_name').val(),
                     price: $('#create_price').val(),
                     category: $('#create_category').val(),
-                    detail: $('#create_detail').val(),
-                    imgUrl: imgUrl
+                    detail: $('#create_detail').val()
+                    // imgUrl: imgUrl
                 };
+                console.log("json :", json);
 
                 $.ajax({
                     url: "/product/create",
@@ -57,15 +58,16 @@ $(document).ready(function () {
                         alert("상품이 성공적으로 등록되었습니다.");
                         // location.reload();
                     },
-                    error: function () {
+                    error: function (error) {
+                        console.log(error);
                         alert("상품 등록에 실패했습니다.");
                     }
                 });
-            },
-            error: function () {
-                alert("simpleWithObject err");
-            }
-        });
+            // },
+        //     error: function () {
+        //         alert("simpleWithObject err");
+        //     }
+        // });
 
         modal.style.display = "none";
     });
