@@ -22,30 +22,31 @@ $(document).ready(function () {
     const modalSubmit = document.getElementById("modal-submit");
 
     modalSubmit.addEventListener("click", () => {
-        // var formData = new FormData();
-        // var inputFile = $("input[id=create_file]");
-        // var file = inputFile[0].files[0];
-        // var imgUrl;
+        var formData = new FormData();
+        var inputFile = $("input[id=create_file]");
+        var file = inputFile[0].files[0];
+        var imgUrl;
 
-        // formData.append("file", file);
+        formData.append("file", file);
 
-        // $.ajax({
-        //     url: "/product/upload",
-        //     type: "POST",
-        //     data: formData,
-        //     processData: false,
-        //     contentType: false,
-        //     success: function (response) {
-        //         alert("이미지가 성공적으로 등록되었습니다.");
-        //         imgUrl = response;
-        //         console.log("이미지 URL: ", imgUrl);
+        $.ajax({
+            url: "/product/upload",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            async: false,
+            success: function (response) {
+                alert("이미지가 성공적으로 등록되었습니다.");
+                imgUrl = response;
+                console.log("이미지 URL: ", imgUrl);
 
                 const json = {
                     name: $('#create_name').val(),
                     price: $('#create_price').val(),
                     category: $('#create_category').val(),
-                    detail: $('#create_detail').val()
-                    // imgUrl: imgUrl
+                    detail: $('#create_detail').val(),
+                    imgUrl: imgUrl
                 };
                 console.log("json :", json);
 
@@ -54,20 +55,21 @@ $(document).ready(function () {
                     type: "POST",
                     contentType: 'application/json',
                     data: JSON.stringify(json),
+                    async: false,
                     success: function () {
                         alert("상품이 성공적으로 등록되었습니다.");
-                        // location.reload();
+                        location.reload();
                     },
                     error: function (error) {
                         console.log(error);
                         alert("상품 등록에 실패했습니다.");
                     }
                 });
-            // },
-        //     error: function () {
-        //         alert("simpleWithObject err");
-        //     }
-        // });
+            },
+            error: function () {
+                alert("simpleWithObject err");
+            }
+        });
 
         modal.style.display = "none";
     });
@@ -157,8 +159,9 @@ $(document).ready(function () {
         var productId = productContent.prev('.product-header').find('.no').text();
 
         productTextElements.forEach((productTextElement) => {
-            productTextElement.classList.add('editable');
-            productTextElement.removeAttribute('readonly');
+            // productTextElement.classList.add('editable');
+            // productTextElement.removeAttribute('readonly');
+            productTextElement.disabled = false;
         });
 
         editBtn.hide();
@@ -170,49 +173,69 @@ $(document).ready(function () {
 
         saveBtn.addEventListener('click', () => {
             productTextElements.forEach((productTextElement) => {
-                productTextElement.classList.remove('editable');
-                productTextElement.setAttribute('readonly', '');
+                // productTextElement.classList.remove('editable');
+                // productTextElement.setAttribute('readonly', '');
+                productTextElement.disabled = true;
             });
+
+            var formData = new FormData();
+            var inputFile = $("input[id=item_file]");
+            var file = inputFile[0].files[0];
+            var imgUrl;
+
+            formData.append("file", file);
 
             var updatedProductName = productContent.find('#item_name').val();
             var updatedProductPrice = productContent.find('#item_price').val();
             var updatedProductCategory = productContent.find('#item_category').val();
             var updatedProductDetail = productContent.find('#item_detail').val();
-            var updatedProductFile = productContent.find('#item_file').val();
-
-            const json = {
-                id: productId,
-                name: updatedProductName,
-                price: updatedProductPrice,
-                category: updatedProductCategory,
-                detail: updatedProductDetail,
-                file: updatedProductFile
-            };
-
-            console.log(json);
 
             $.ajax({
-                url: "/product/update",
+                url: "/product/upload",
                 type: "POST",
-                contentType: 'application/json',
-                data: JSON.stringify(json),
-                success: function () {
-                    alert("수정되었습니다.")
-                    location.reload();
-                },
-                error: function () {
-                    alert("simpleWithObject err");
+                data: formData,
+                processData: false,
+                contentType: false,
+                async: false,
+                success: function (response) {
+                    alert("이미지가 성공적으로 등록되었습니다.");
+                    imgUrl = response;
+                    console.log("이미지 URL: ", imgUrl);
+                    $('#result-image').attr("src", response);
+
+                    const json = {
+                        id: productId,
+                        name: updatedProductName,
+                        price: updatedProductPrice,
+                        category: updatedProductCategory,
+                        detail: updatedProductDetail,
+                        imgUrl: imgUrl
+                    };
+
+                    console.log(json);
+
+                    $.ajax({
+                        url: "/product/update",
+                        type: "POST",
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+                        async: false,
+                        success: function () {
+                            alert("수정되었습니다.")
+                            location.reload();
+                        },
+                        error: function () {
+                            alert("simpleWithObject err");
+                        }
+                    });
                 }
             });
-
             saveBtn.remove();
             editBtn.show();
         });
 
         editBtn.after(saveBtn);
     });
-
-
 });
 
 //화면 바꿀 때 colspan 화면 크기에 맞게 설정

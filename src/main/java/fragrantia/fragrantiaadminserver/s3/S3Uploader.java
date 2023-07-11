@@ -42,7 +42,6 @@ public class S3Uploader {
 
     private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-        System.out.println("putS3 메서드 실행완료");
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
