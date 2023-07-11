@@ -4,13 +4,17 @@ select {
   all: revert;
 }
 
+.h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 .check>input[type="checkbox"] {
   /* 모든 체크박스에 대한 스타일 적용 */
   width: 12px;
   height: 12px;
   border: 0.5px solid rgb(96, 96, 96);
 }
-
 
 #product table {
   border-collapse: collapse;
@@ -70,26 +74,9 @@ textarea {
   height: 100px;
 }
 
-/* .content.labelLabel {
-  display: block;
-} */
-
 .content>.fileUpload {
   display: inline-block;
 }
-
-.content input[type="file"] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-}
-
-
-
-
 
 /* ========================================== */
 #product .product-content .content_btn {
@@ -146,19 +133,6 @@ textarea {
   #product table {
     table-layout: fixed;
   }
-
-  /* #proudct th.check{
-    width: 10%;
-  }
-  #proudct th.no{
-    width: 10%;
-  }
-  #proudct th.title{
-    width: 30%;
-  }
-  #proudct th.category{
-    width: 30%;
-  } */
 
   #product td.title,
   #product th.category {
