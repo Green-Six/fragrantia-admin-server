@@ -17,8 +17,8 @@ public class DomainStoreService implements StoreService{
     private final StoreMapper storeMapper;
 
     @Override
-    public Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
-        Store store = Store.create(latitude, longitude, zip, address, name, detail, telephone, file);
+    public Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
+        Store store = Store.create(latitude, longitude, zip, address, name, detail, telephone, imgUrl);
 
         storeMapper.create(store);
 
@@ -36,10 +36,10 @@ public class DomainStoreService implements StoreService{
     }
 
     @Override
-    public void updateStore(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
+    public void updateStore(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
         Store store = storeMapper.getStore(id);
 
-        store.update(latitude, longitude, zip, address, name, detail, telephone, file);
+        store.update(latitude, longitude, zip, address, name, detail, telephone, imgUrl);
 
         storeMapper.updateStore(store);
     }

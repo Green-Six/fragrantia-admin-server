@@ -11,10 +11,20 @@ button,
 select {
   all: revert;
 }
-div, h1, label, input {
+
+div,
+h1,
+label,
+input {
   margin: 0;
   padding: 0;
 }
+
+.h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 /* ================ 표 스타일 =============== */
 #customerService table {
   border-collapse: collapse;
@@ -47,6 +57,7 @@ div, h1, label, input {
 #customerService .title {
   text-align: left;
 }
+
 /* =============== 본문 영역 ============ */
 #customerService .customerService-content {
   display: none;
@@ -59,31 +70,37 @@ div, h1, label, input {
   text-align: center;
   background-color: white;
 }
+
 .content>.content_left {
   float: left;
   width: 15%;
   text-align: right;
   padding-right: 10px;
 }
+
 .content>.content_left>label {
   height: 26.4px;
   margin-bottom: 0.8rem;
 }
-.content>.content_left>label[for="ask_detail"], 
+
+.content>.content_left>label[for="ask_detail"],
 .content>.content_left>label[for="ask_answer"] {
   height: 80px;
 }
+
 .content>.content_center {
   float: left;
   width: 40%;
 }
+
 input[type=text] {
   display: block;
-  width: 98%; 
+  width: 98%;
   font-size: 0.8rem;
   margin-bottom: 0.8rem;
   padding: 2px;
 }
+
 textarea[type=text] {
   display: block;
   width: 100%;
@@ -94,19 +111,24 @@ textarea[type=text] {
   border: 0.5px solid rgb(133, 133, 133);
   border-radius: 2px;
 }
+
 .content>.content_right {
   float: right;
   position: relative;
   width: 40%;
-  height: 320px; /* content_center 높이와 동일하게 */
+  height: 320px;
+  /* content_center 높이와 동일하게 */
 }
+
 .content>.content_right>img {
   width: 80%;
   margin-bottom: 10px;
 }
+
 .content>.content_right>label[for="ask_img_file"] {
   display: inline-block;
 }
+
 .content>.content_right>#ask_img_file {
   display: inline-block;
   width: 50%;
@@ -134,6 +156,7 @@ textarea[type=text] {
 .content_bottom {
   display: none;
 }
+
 /* ======== 이전 숫자 다음 영역 ======== */
 .pagination {
   display: flex;
@@ -168,13 +191,14 @@ textarea[type=text] {
   background-color: #333;
   color: #fff;
 }
+
 /* ================ 미디어 쿼리 ================ */
 @media screen and (max-width: 768px) {
   #customerService table {
     table-layout: fixed;
   }
 
-  #customerService td.title, 
+  #customerService td.title,
   #customerService th.category {
     width: auto;
     white-space: nowrap;
@@ -203,29 +227,35 @@ textarea[type=text] {
     text-align: right;
     padding-right: 10px;
   }
+
   .content>.content_center {
     float: right;
     width: 60%;
   }
+
   input[type=text] {
     display: block;
-    width: 98%; 
+    width: 98%;
     font-size: 0.8rem;
     margin-bottom: 0.8rem;
     padding: 2px;
   }
+
   .content>.content_right {
     display: none;
   }
+
   .content_bottom {
     display: block;
     position: relative;
   }
+
   .content_bottom>input {
     display: inline-block;
     width: 50%;
     margin-top: 0.8rem;
   }
+
   .content_bottom>button {
     padding: 2px;
     text-align: center;

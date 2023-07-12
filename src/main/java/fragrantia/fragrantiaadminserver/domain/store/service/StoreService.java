@@ -6,13 +6,13 @@ import fragrantia.fragrantiaadminserver.domain.store.Store;
 import java.util.List;
 
 public interface StoreService {
-    Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file);
+    Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl);
 
     List<GetStoresDto> getStoresWithPaging(int offset, int limit);
 
     int getTotalStoreCount();
 
-    void updateStore(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file);
+    void updateStore(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl);
 
     void deleteStore(Long Id);
 }

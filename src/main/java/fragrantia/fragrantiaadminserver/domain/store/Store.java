@@ -16,9 +16,9 @@ public class Store {
     private String name;
     private String detail;
     private String telephone;
-    private String file;
+    private String imgUrl;
 
-    public Store(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
+    public Store(Long id, Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -27,10 +27,10 @@ public class Store {
         this.name = name;
         this.detail = detail;
         this.telephone = telephone;
-        this.file = file;
+        this.imgUrl = imgUrl;
     }
 
-    private Store(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
+    private Store(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.zip = zip;
@@ -38,10 +38,10 @@ public class Store {
         this.name = name;
         this.detail = detail;
         this.telephone = telephone;
-        this.file = file;
+        this.imgUrl = imgUrl;
     }
 
-    public static Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
+    public static Store create(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
         require(latitude != null);
         require(longitude != null);
         require(zip != null);
@@ -50,11 +50,11 @@ public class Store {
         require(Strings.isNotBlank(detail));
         require(Strings.isNotBlank(telephone));
 
-        return new Store(latitude, longitude, zip, address, name, detail, telephone, file);
+        return new Store(latitude, longitude, zip, address, name, detail, telephone, imgUrl);
     }
 
 
-    public void update(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String file) {
+    public void update(Double latitude, Double longitude, Integer zip, String address, String name, String detail, String telephone, String imgUrl) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.zip = zip;
@@ -62,6 +62,6 @@ public class Store {
         this.name = name;
         this.detail = detail;
         this.telephone = telephone;
-        this.file = file;
+        this.imgUrl = imgUrl;
     }
 }
