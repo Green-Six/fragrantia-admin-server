@@ -22,27 +22,52 @@ $(document).ready(function () {
     const modalSubmit = document.getElementById("modal-submit");
 
     modalSubmit.addEventListener("click", () => {
-        const json = {
-            latitude: $('#create_latitude').val(),
-            longitude: $('#create_longitude').val(),
-            zip: $('#create_zip').val(),
-            address: $('#create_addr').val(),
-            name: $('#create_name').val(),
-            detail: $('#create_detail').val(),
-            telephone: $('#create_tel').val(),
-            file: $('#photo').val()
-        };
+        var formData = new FormData();
+        var inputFile = $("input[id=create_file]");
+        var file = inputFile[0].files[0];
+        var imgUrl;
 
-        console.log(json);
+        formData.append("file", file);
 
         $.ajax({
-            url: "/store/create",
+            url: "/store/upload",
             type: "POST",
-            contentType: 'application/json',
-            data: JSON.stringify(json),
-            success: function () {
-                alert("매장 정보가 성공적으로 등록되었습니다.");
-                location.reload;
+            data: formData,
+            processData: false,
+            contentType: false,
+            async: false,
+            success: function (response) {
+                alert("이미지가 성공적으로 등록되었습니다.");
+                imgUrl = response;
+                console.log("이미지 URL: ", imgUrl);
+
+                const json = {
+                    latitude: $('#create_latitude').val(),
+                    longitude: $('#create_longitude').val(),
+                    zip: $('#create_zip').val(),
+                    address: $('#create_addr').val(),
+                    name: $('#create_name').val(),
+                    detail: $('#create_detail').val(),
+                    telephone: $('#create_tel').val(),
+                    imgUrl: imgUrl
+                };
+
+                console.log(json);
+
+                $.ajax({
+                    url: "/store/create",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    async: false,
+                    success: function () {
+                        alert("매장 정보가 성공적으로 등록되었습니다.");
+                        // location.reload;
+                    },
+                    error: function () {
+                        alert("매장 정보 등록에 실패했습니다.");
+                    }
+                });
             },
             error: function () {
                 alert("simpleWithObject err");
@@ -135,8 +160,7 @@ $(document).ready(function () {
         console.log("id는 " + storeId + "입니다.")
 
         storeTextElements.forEach((storeTextElement) => {
-            storeTextElement.classList.add('editable');
-            storeTextElement.removeAttribute('readonly');
+            storeTextElement.disabled = false;
         });
 
         editBtn.hide();
@@ -148,9 +172,15 @@ $(document).ready(function () {
 
         saveBtn.addEventListener('click', () => {
             storeTextElements.forEach((storeTextElement) => {
-                storeTextElement.classList.remove('editable');
-                storeTextElement.setAttribute('readonly', '');
+                storeTextElement.disabled = true;
             });
+
+            var formData = new FormData();
+            var inputFile = $("input[id=store_file]");
+            var file = inputFile[0].files[0];
+            var imgUrl;
+
+            formData.append("file", file);
 
             var updatedLatitude = storeContent.find('#store_latitude').val();
             var updatedLongitude = storeContent.find('#store_longitude').val();
@@ -159,36 +189,49 @@ $(document).ready(function () {
             var updatedName = storeContent.find('#store_name').val();
             var updatedDetail = storeContent.find('#store_detail').val();
             var updatedTelephone = storeContent.find('#store_tel').val();
-            var updatedFile = storeContent.find('#store_file_name').val();
-
-            const json = {
-                id: storeId,
-                latitude: updatedLatitude,
-                longitude: updatedLongitude,
-                zip: updatedZip,
-                address: updatedAddress,
-                name: updatedName,
-                detail: updatedDetail,
-                telephone: updatedTelephone,
-                file: updatedFile
-            };
-
-            console.log(json);
 
             $.ajax({
-                url: "/store/update",
+                url: "/store/upload",
                 type: "POST",
-                contentType: 'application/json',
-                data: JSON.stringify(json),
-                success: function () {
-                    alert("수정되었습니다.")
-                    location.reload;
-                },
-                error: function () {
-                    alert("simpleWithObject err");
+                data: formData,
+                processData: false,
+                contentType: false,
+                async: false,
+                success: function (response) {
+                    alert("이미지가 성공적으로 등록되었습니다.");
+                    imgUrl = response;
+                    console.log("이미지 URL: ", imgUrl);
+
+                    const json = {
+                        id: storeId,
+                        latitude: updatedLatitude,
+                        longitude: updatedLongitude,
+                        zip: updatedZip,
+                        address: updatedAddress,
+                        name: updatedName,
+                        detail: updatedDetail,
+                        telephone: updatedTelephone,
+                        imgUrl: imgUrl
+                    };
+
+                    console.log(json);
+
+                    $.ajax({
+                        url: "/store/update",
+                        type: "POST",
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+                        async: false,
+                        success: function () {
+                            alert("수정되었습니다.")
+                            // location.reload;
+                        },
+                        error: function () {
+                            alert("simpleWithObject err");
+                        }
+                    });
                 }
             });
-
             saveBtn.remove();
             editBtn.show();
         });

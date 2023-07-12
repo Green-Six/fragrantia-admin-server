@@ -17,6 +17,6 @@ public class StoreCreateDto {
         private String name;
         private String detail;
         private String telephone;
-        private String file;
+        private String imgUrl;
     }
 }

@@ -18,6 +18,6 @@ public class StoreUpdateDto {
         private String name;
         private String detail;
         private String telephone;
-        private String file;
+        private String imgUrl;
     }
 }

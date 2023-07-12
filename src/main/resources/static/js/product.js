@@ -159,8 +159,6 @@ $(document).ready(function () {
         var productId = productContent.prev('.product-header').find('.no').text();
 
         productTextElements.forEach((productTextElement) => {
-            // productTextElement.classList.add('editable');
-            // productTextElement.removeAttribute('readonly');
             productTextElement.disabled = false;
         });
 
@@ -173,8 +171,6 @@ $(document).ready(function () {
 
         saveBtn.addEventListener('click', () => {
             productTextElements.forEach((productTextElement) => {
-                // productTextElement.classList.remove('editable');
-                // productTextElement.setAttribute('readonly', '');
                 productTextElement.disabled = true;
             });
 
@@ -201,7 +197,6 @@ $(document).ready(function () {
                     alert("이미지가 성공적으로 등록되었습니다.");
                     imgUrl = response;
                     console.log("이미지 URL: ", imgUrl);
-                    $('#result-image').attr("src", response);
 
                     const json = {
                         id: productId,

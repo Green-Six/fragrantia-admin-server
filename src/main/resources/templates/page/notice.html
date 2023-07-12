@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.thymeleaf.org ">
+<html lang="ko" xmlns="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <title>Fragrantia Admin Notice</title>
@@ -14,9 +13,10 @@
     <!-- 외부 스타일시트(전역 <- 리셋포함) -->
     <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
     <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/page/notice.css">
-    <link rel="stylesheet" href="../../css/module/buttonNav.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/module/buttonNav.css">
+    <link rel="stylesheet" href="../../css/module/header.css">
+    <link rel="stylesheet" href="../../css/page/notice.css">
 
     <!-- 외부 스크립트 (자바스크립트, jQuery) -->
     <script src="https://kit.fontawesome.com/047a434073.js" crossorigin="anonymous"></script>
@@ -26,7 +26,8 @@
 </head>
 
 <body>
-    <div id="header"></div>
+    <th:block th:replace="fragments/header :: headerFragment"></th:block>
+
     <div class="wrap">
         <span class="h1">공지사항 관리</span>
     </div>

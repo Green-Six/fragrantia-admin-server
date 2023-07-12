@@ -39,11 +39,6 @@ public class ProductController {
     ) throws IOException {
 
         productService.create(admin.getId(), req.getName(), req.getPrice(), req.getCategory(), req.getDetail(), req.getImgUrl());
-        System.out.println("name = " + req.getName());
-        System.out.println("price = " + req.getPrice());
-        System.out.println("category = " + req.getCategory());
-        System.out.println("detail = " + req.getDetail());
-        System.out.println("imgUrl = " + req.getImgUrl());
     }
 
     @GetMapping

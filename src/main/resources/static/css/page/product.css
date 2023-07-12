@@ -67,6 +67,7 @@ select {
 
 #product .product-content .content input {
   display: inline-block;
+  height: 19px;
 }
 
 textarea {

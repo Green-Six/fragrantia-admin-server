@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <title>Fragrantia Admin Product</title>
@@ -114,8 +113,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                 th:value="${product.price}"><br />
 
                             <label for="item_category">Category</label><br />
-                            <input type="text" name="item_category" id="item_category" class="product_text" disabled="true"
-                                th:value="${product.category}"><br />
+                            <input type="text" name="item_category" id="item_category" class="product_text"
+                                disabled="true" th:value="${product.category}"><br />
                             <!-- <select id="item_category" name="product_category_select" disabled="true">
                                 <option selected>Flower</option>
                                 <option>Perfume</option>
@@ -131,6 +130,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                             <div class="col-md-10">
                                 <img th:src="${product.imgUrl}" th:if="${product.imgUrl != null}">
                             </div>
+                            
                         </div>
                         <div class="content_btn">
                             <button type="button" class="btn btn-dark edit-btn">Edit</button>

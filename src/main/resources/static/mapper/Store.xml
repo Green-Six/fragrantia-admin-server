@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone, file)
+        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone, img_url)
         VALUES (
         #{latitude},
         #{longitude},
@@ -14,18 +14,18 @@
         #{name},
         #{detail},
         #{telephone},
-        #{file}
+        #{imgUrl}
         )
     </insert>
 
     <select id="getStore" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.store.Store">
-        SELECT id, latitude, longitude, zip, address, name, detail, telephone, file
+        SELECT id, latitude, longitude, zip, address, name, detail, telephone, img_url
         FROM STORE
         WHERE id = #{id}
     </select>
 
     <select id="getStoresWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.store.GetStoresDto">
-        SELECT id, latitude, longitude, zip, address, name, detail, telephone, file
+        SELECT id, latitude, longitude, zip, address, name, detail, telephone, img_url AS imgURL
         FROM STORE
         ORDER BY id DESC
         LIMIT #{offset}, #{limit}
@@ -37,7 +37,7 @@
 
     <update id="updateStore" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store">
         UPDATE STORE
-        SET latitude = #{latitude}, longitude = #{longitude}, zip = #{zip}, address = #{address}, name = #{name}, detail = #{detail}, telephone = #{telephone}, file = #{file}
+        SET latitude = #{latitude}, longitude = #{longitude}, zip = #{zip}, address = #{address}, name = #{name}, detail = #{detail}, telephone = #{telephone}, img_url = #{imgUrl}
         WHERE id = #{id}
     </update>
 
