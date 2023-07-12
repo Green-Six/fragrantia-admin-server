@@ -44,6 +44,11 @@ button {
     background-color: white;
 }
 
+#store .store-content .content input {
+    height: 19px;
+    padding: 2px;
+  }
+
 textarea {
     width: 90%;
     height: 100px;

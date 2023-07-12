@@ -45,11 +45,6 @@ public class StoreController {
         List<GetStoresDto> stores = storeService.getStoresWithPaging(offset, size);
         int totalCount = storeService.getTotalStoreCount();
 
-        for (GetStoresDto store : stores) {
-            System.out.println("name = " + store.getName());
-            System.out.println("imgUrl: " + store.getImgUrl());
-        }
-
         model.addAttribute("stores", stores);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", calculateTotalPages(totalCount, size));
