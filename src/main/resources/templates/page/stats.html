@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Fragrantia Admin Stats</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="향의 이야기 당신을 초대합니다.">
+    <meta property="og:image" content="https://green-six.github.io/Fragrantia-User-Web/images/ogLogo.png">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/module/header.css">
+    <link rel="stylesheet" href="../../css/page/stats.css">
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gridjs@6.0.6/dist/gridjs.production.min.js"></script>
+    <script src="https://kit.fontawesome.com/047a434073.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <th:block th:replace="fragments/header :: headerFragment"></th:block>
+
+    <div class="wrap" id="app">
+
+        <div class="chart visitorChartWrap">
+            <div class="labelwrap">
+                <label class="chartLabelInput" for="visitInput"><i class="fa-solid fa-calendar"></i> 기간 설정</label>
+                <input class="chartInput" id="visitInput" type="text" name="daterange" value="" />
+            </div>
+            <div class="chartWrap">
+                <canvas id="visitChart"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="chart searchChartWrap">
+                <div class="labelwrap">
+                    <label class="chartLabelInput" for="searchInput"><i class="fa-solid fa-calendar"></i> 날짜 설정</label>
+                    <input class="chartInput" id="searchInput" type="text" name="datepick" value="" />
+                </div>
+                <div class="chartWrap"><canvas id="searchChart"></canvas></div>
+            </div>
+            <div class="tableContainer">
+                <div class="tableWrap">
+                    <div class="tableh1">월별 방문자수 통계</div>
+                    <div class="table" id="visitorTable"></div>
+                </div>
+                <div class="tableWrap">
+                    <div class="tableh1">항목별 정보</div>
+                    <div class="table" id="itemTable"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <script src="../../js/stats.js"></script>
+</body>
+
+</html>

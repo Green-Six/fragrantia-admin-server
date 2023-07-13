@@ -1,8 +1,9 @@
 $(function () {
     $("#join-form").validate({
         rules: {
-            id: {
+            email: {
                 required: true,
+                email: true,
                 minlength: 5,
                 maxlength: 20,
             },
@@ -25,8 +26,9 @@ $(function () {
             },
         },
         messages: {
-            id: {
+            email: {
                 required: "아이디를 입력해주세요",
+                email: "이메일 형식을 지켜서 입력해주세요",
                 minlength: "5자 이상 입력해주세요",
                 maxlength: "20자 이하로 입력해주세요",
             },
@@ -49,31 +51,37 @@ $(function () {
             },
         },
         submitHandler: function () {
-            const json = {
-                email: $('#email').val(),
-                password: $('#password').val(),
-                name: $('#name').val(),
-                branch: $('#branch').val()
-            };
+            if (emailCheck != 0) {
+                alert("이메일을 중복되지 않게 다시 작성해주세요.");
+            } else {
+                const json = {
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    name: $('#name').val(),
+                    branch: $('#branch').val()
+                };
 
-            $.ajax({
-                url: "/admin",
-                type: "POST",
-                contentType: 'application/json',
-                data: JSON.stringify(json),
-                success: function () {
-                    alert("회원가입이 성공적으로 완료되었습니다.");
-                    window.location.href = '/auth/login';
-                },
-                error: function () {
-                    alert("simpleWithObject err");
-                }
-            });
+                $.ajax({
+                    url: "/admin",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    success: function () {
+                        alert("회원가입이 성공적으로 완료되었습니다.");
+                        window.location.href = '/auth/login';
+                    },
+                    error: function () {
+                        alert("simpleWithObject err");
+                    }
+                });
+            }
         },
         errorPlacement: function (error, element) {
             error.appendTo(element.parent().next());
         }
     });
+    var emailCheck;
+
     function checkEmailDuplication() {
         var email = $('#email').val();
         $.ajax({
@@ -82,21 +90,30 @@ $(function () {
             data: { email: email },
             success: function (cnt) {
                 if (!email) {
-                    $('.id_ok').css("display", "none");
-                    $('.id_already').css("display", "none");
+                    $('.id_ok').hide();
+                    $('.id_already').hide();
                     return
                 } else if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-                    $('.id_ok').css("display", "inline-block");
-                    $('.id_already').css("display", "none");
+                    $('.id_ok').show();
+                    $('.id_already').hide();
                 } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                    $('.id_already').css("display", "inline-block");
-                    $('.id_ok').css("display", "none");
+                    emailCheck = cnt;
+                    $('.id_already').show();
+                    $('.id_ok').hide();
                 }
             },
             error: function () {
                 alert("에러가 발생했습니다.");
             }
         });
+
     }
-    $('#email').on('input', checkEmailDuplication);
+    $('#email').on('input', function () {
+        if ($('#email').valid()) {
+            checkEmailDuplication();
+        } else {
+            $('.id_already').hide();
+            $('.id_ok').hide();
+        }
+    });
 });
