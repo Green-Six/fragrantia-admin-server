@@ -93,10 +93,13 @@
                 <tr class="notice-content">
                     <td colspan="6">
                         <div class="content">
-                            <textarea name="notice-title" class="notice-title" rows="1" cols="100" readonly
-                                th:text="${notice.title}"></textarea>
-                            <textarea name="notice-textarea" class="notice-textarea" rows="6" cols="100" readonly
-                                th:text="${notice.content}"></textarea>
+                            <label for="notice-title">Title</label><br>
+                            <textarea name="notice-title" class="notice-title" id="notice-title" rows="1" cols="100"
+                                readonly th:text="${notice.title}"></textarea><br>
+
+                            <label for="notice-textarea">Content</label><br>
+                            <textarea name="notice-textarea" class="notice-textarea" id="notice-textarea" rows="6"
+                                cols="100" readonly th:text="${notice.content}"></textarea>
                         </div>
                         <div class="content_btn">
                             <button type="button" class="btn btn-dark edit-btn">Edit</button>

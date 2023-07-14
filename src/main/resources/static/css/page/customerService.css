@@ -66,9 +66,14 @@ input {
 
 #customerService .customerService-content .content {
   overflow: hidden;
+  height: auto;
   padding: 10px 20px;
   text-align: center;
   background-color: white;
+}
+
+.content {
+  height: 380px;
 }
 
 .content>.content_left {
@@ -151,7 +156,7 @@ textarea[type=text] {
 
 .customerService-content .content_btn {
   text-align: right;
-  margin: 5px 20px 10px 0;
+  margin: 20px 20px 10px 0;
 }
 
 .content_bottom {
