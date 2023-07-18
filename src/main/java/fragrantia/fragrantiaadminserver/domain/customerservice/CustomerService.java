@@ -14,11 +14,10 @@ public class CustomerService {
     private String email;
     private String detail;
     private String answer;
-    private String fileName;
-    private Long view = 0L;
+    private String imgUrl;
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public CustomerService(Long id, Long adminId, String title, String category, String userName, String email, String detail, String answer, String fileName, Long view, LocalDateTime createdAt) {
+    public CustomerService(Long id, Long adminId, String title, String category, String userName, String email, String detail, String answer, String imgUrl, LocalDateTime createdAt) {
         this.id = id;
         this.adminId = adminId;
         this.title = title;
@@ -27,8 +26,7 @@ public class CustomerService {
         this.email = email;
         this.detail = detail;
         this.answer = answer;
-        this.fileName = fileName;
-        this.view = view;
+        this.imgUrl = imgUrl;
         this.createdAt = createdAt;
     }
 

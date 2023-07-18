@@ -66,7 +66,6 @@ input {
 
 #customerService .customerService-content .content {
   overflow: hidden;
-  height: auto;
   padding: 10px 20px;
   text-align: center;
   background-color: white;
@@ -116,6 +115,11 @@ textarea[type=text] {
   padding: 2px;
   border: 0.5px solid rgb(133, 133, 133);
   border-radius: 2px;
+}
+
+textarea[name="ask_detail"] {
+  background-color: #cecbcb4f;
+  border: #858585;
 }
 
 .content>.content_right {

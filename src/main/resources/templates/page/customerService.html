@@ -53,7 +53,6 @@
                     <th class="title">Title</th>
                     <th class="category">Category</th>
                     <th class="date">Date</th>
-                    <th class="view">View</th>
                 </tr>
             </thead>
             <!-- 테이블 바디 영역 -->
@@ -64,7 +63,6 @@
                     <td class="title" th:text="${customerService.title}"></td>
                     <td class="category" th:text="${customerService.category}"></td>
                     <td class="date" th:text="${customerService.createdAt}"></td>
-                    <td class="view" th:text="${customerService.view}"></td>
                 </tr>
                 <!-- label 'for' 속성 값은 연결하고자 하는 폼 컨트롤의 id 값과 동일해야 함. -->
                 <!-- 본문 영역 -->
@@ -97,7 +95,7 @@
                                 <img src="../../images/customerImg.jpg"><br>
                                 <label for="ask_img_file">Image</label>
                                 <input type="text" name="ask_img_file" id="ask_img_file" disabled="true"
-                                    th:value="${customerService.fileName}">
+                                    th:value="${customerService.imgUrl}">
                                 <button type="button" class="btn btn-light">Download</button>
                             </div>
                         </div>
