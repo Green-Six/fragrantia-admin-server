@@ -144,7 +144,7 @@ submit.addEventListener('click', function () {
             async: false,
             success: function () {
               alert("수정되었습니다.")
-              // location.reload();
+              location.reload();
             },
             error: function () {
               alert("simpleWithObject err");

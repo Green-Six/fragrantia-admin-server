@@ -145,7 +145,7 @@
                                 th:value="${store.imgUrl != null ? store.imgUrl.replace('https://berryawsbucket.s3.ap-northeast-2.amazonaws.com/static/', '') : ''}">
 
                             <div class="col-md-10">
-                                <img th:src="${store.imgUrl}" th:if="${store.imgUrl != null}">
+                                <img th:src="${store.imgUrl}" th:if="${store.imgUrl != null}" class="prev_img">
                             </div>
 
                         </div>

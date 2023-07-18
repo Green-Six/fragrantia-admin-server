@@ -154,6 +154,7 @@ $(document).ready(function () {
     const productTextElements = document.querySelectorAll('.product_text');
 
     $('.edit-btn').click(function () {
+        
         var editBtn = $(this);
         var productContent = editBtn.closest('.product-content');
         var productId = productContent.prev('.product-header').find('.no').text();
@@ -182,11 +183,11 @@ $(document).ready(function () {
 
             formData.append("file", file);
 
-            var updatedProductName = productContent.find('#item_name').val();
-            var updatedProductPrice = productContent.find('#item_price').val();
-            var updatedProductCategory = productContent.find('#item_category').val();
-            var updatedProductDetail = productContent.find('#item_detail').val();
-            var prevProductFile = productContent.find('#item_prev_file').val();
+            var updatedProductName = displayedRow.find('#item_name').val();
+            var updatedProductPrice = displayedRow.find('#item_price').val();
+            var updatedProductCategory = displayedRow.find('#item_category').val();
+            var updatedProductDetail = displayedRow.find('#item_detail').val();
+            var prevImgUrl = displayedRow.find('.prev_img').attr('src');
 
             if (file === undefined) {
                 const json = {
@@ -195,7 +196,7 @@ $(document).ready(function () {
                     price: updatedProductPrice,
                     category: updatedProductCategory,
                     detail: updatedProductDetail,
-                    imgUrl: prevProductFile
+                    imgUrl: prevImgUrl
                 };
 
                 console.log(json);

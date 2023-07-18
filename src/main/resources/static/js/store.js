@@ -62,7 +62,7 @@ $(document).ready(function () {
                     async: false,
                     success: function () {
                         alert("매장 정보가 성공적으로 등록되었습니다.");
-                        // location.reload;
+                        location.reload;
                     },
                     error: function () {
                         alert("매장 정보 등록에 실패했습니다.");
@@ -157,7 +157,6 @@ $(document).ready(function () {
         var editBtn = $(this);
         var storeContent = editBtn.closest('.store-content');
         var storeId = storeContent.prev('.store-header').find('.no').text();
-        console.log("id는 " + storeId + "입니다.")
 
         storeTextElements.forEach((storeTextElement) => {
             storeTextElement.disabled = false;
@@ -183,14 +182,14 @@ $(document).ready(function () {
 
             formData.append("file", file);
 
-            var updatedLatitude = storeContent.find('#store_latitude').val();
-            var updatedLongitude = storeContent.find('#store_longitude').val();
-            var updatedZip = storeContent.find('#store_zip').val();
-            var updatedAddress = storeContent.find('#store_addr').val();
-            var updatedName = storeContent.find('#store_name').val();
-            var updatedDetail = storeContent.find('#store_detail').val();
-            var updatedTelephone = storeContent.find('#store_tel').val();
-            var prevStoreFile = storeContent.find('#store_prev_file').val();
+            var updatedLatitude = displayedRow.find('#store_latitude').val();
+            var updatedLongitude = displayedRow.find('#store_longitude').val();
+            var updatedZip = displayedRow.find('#store_zip').val();
+            var updatedAddress = displayedRow.find('#store_addr').val();
+            var updatedName = displayedRow.find('#store_name').val();
+            var updatedDetail = displayedRow.find('#store_detail').val();
+            var updatedTelephone = displayedRow.find('#store_tel').val();
+            var prevImgUrl = displayedRow.find('.prev_img').attr('src');
 
             if (file === undefined) {
                 const json = {
@@ -202,7 +201,7 @@ $(document).ready(function () {
                     name: updatedName,
                     detail: updatedDetail,
                     telephone: updatedTelephone,
-                    imgUrl: prevStoreFile
+                    imgUrl: prevImgUrl
                 };
 
                 console.log(json);
@@ -256,7 +255,7 @@ $(document).ready(function () {
                             async: false,
                             success: function () {
                                 alert("수정되었습니다.")
-                                // location.reload;
+                                location.reload;
                             },
                             error: function () {
                                 alert("simpleWithObject err");

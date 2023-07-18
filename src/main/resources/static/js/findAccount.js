@@ -3,7 +3,7 @@ $(function () {
         rules: {
             name: {
                 required: true,
-                minlength: 2,
+                minlength: 1,
                 maxlength: 7,
             },
             email: {
@@ -19,7 +19,7 @@ $(function () {
         messages: {
             name: {
                 required: "이름을 입력해주세요",
-                minlength: "최소 2자 이상 입력해주세요",
+                minlength: "최소 1자 이상 입력해주세요",
                 maxlength: "최대 7자 이하로 입력해주세요",
             },
             email: {
