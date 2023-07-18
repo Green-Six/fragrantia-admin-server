@@ -34,17 +34,23 @@
         <div class="container">
             <div class="contentWrap" id="namingC">
                 <div class="h2">#1 History</div>
-                <input type="file" th:src="${brandInfo.historyImgUrl}">
+                <input type="file">
+                <input type="text" name="history_prev_file" id="history_prev_file" class="prev_file" disabled="true"
+                    th:value="${brandInfo.historyImgUrl}">
                 <textarea th:text="${brandInfo.historyDetail}" id="namingTextarea" name="naming"></textarea>
             </div>
             <div class="contentWrap" id="natureC">
                 <div class="h2">#2 Nature</div>
-                <input type="file" th:src="${brandInfo.natureImgUrl}">
+                <input type="file">
+                <input type="text" name="nature_prev_file" id="nature_prev_file" class="prev_file" disabled="true"
+                    th:value="${brandInfo.natureImgUrl}">
                 <textarea th:text="${brandInfo.natureDetail}" id="natureTextarea" name="nature"></textarea>
             </div>
             <div class="contentWrap" id="humanC">
                 <div class="h2">#3 Human</div>
                 <input type="file" th:src="${brandInfo.humanImgUrl}">
+                <input type="text" name="human_prev_file" id="human_prev_file" class="prev_file" disabled="true"
+                    th:value="${brandInfo.humanImgUrl}">
                 <textarea th:text="${brandInfo.humanDetail}" id="humanTextarea" name="human"></textarea>
             </div>
             <div class="buttonWrap">

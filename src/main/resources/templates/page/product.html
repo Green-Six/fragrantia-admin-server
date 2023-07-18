@@ -61,13 +61,16 @@
                     <input type="text" id="create_price" name="create_price"><br>
 
                     <label for="create_category">카테고리</label>
-                    <input type="text" id="create_category" name="create_category"><br>
+                    <select id="create_category" name="product_category_select">
+                        <option selected>Flower</option>
+                        <option>Perfume</option>
+                    </select><br>
 
                     <label for="create_detail">설명</label>
                     <textarea id="create_detail" name="create_detail"></textarea><br>
 
                     <label for="create_file">이미지</label>
-                    <input type="file" id="create_file" class="col-md-12 form-control form-control-sm">
+                    <input type="file" id="create_file">
 
                     <button id="modal-submit" type="submit">작성</button>
                     <button id="modal-close">취소</button>
@@ -113,22 +116,23 @@
                                 th:value="${product.price}"><br />
 
                             <label for="item_category">Category</label><br />
-                            <input type="text" name="item_category" id="item_category" class="product_text"
-                                disabled="true" th:value="${product.category}"><br />
-                            <!-- <select id="item_category" name="product_category_select" disabled="true">
-                                <option selected>Flower</option>
-                                <option>Perfume</option>
-                            </select><br /> -->
+                                <select id="item_category" name="product_category_select" class="product_text" disabled="true">
+                                    <option th:selected="${product.category == 'Flower'}" th:value="Flower">Flower</option>
+                                    <option th:selected="${product.category == 'Perfume'}" th:value="Perfume">Perfume</option>
+                                </select><br />
+
                             <label for="item_detail">Detail</label><br />
                             <textarea name="item_detail" id="item_detail" class="product_text" disabled="true"
                                 th:text="${product.detail}"></textarea><br />
 
                             <label for="item_file">File</label><br />
-                            <input type="file" name="item_file" id="item_file" class="product_text" disabled="true"
-                                th:value="${product.imgUrl}">
+                            <input type="file" name="item_file" id="item_file" class="product_text" disabled="true"><br />
 
+                            <label for="item_prev_file">Prev File</label><br />
+                            <input type="text" name="item_prev_file" id="item_prev_file" class="product_text" disabled="true" readonly
+                                th:value="${product.imgUrl != null ? product.imgUrl.replace('https://berryawsbucket.s3.ap-northeast-2.amazonaws.com/static/', '') : ''}">
                             <div class="col-md-10">
-                                <img th:src="${product.imgUrl}" th:if="${product.imgUrl != null}">
+                                <img th:src="${product.imgUrl}" th:if="${product.imgUrl != null}" class="prev_img">
                             </div>
 
                         </div>

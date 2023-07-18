@@ -2,7 +2,7 @@
 let reColspan = function () {
     if ($(window).width() <= 425) {
         // colspan 속성이 6인 td 요소를 찾아서
-        $("tr.customerService-content td[colspan='6']").each(function () {
+        $("tr.customerService-content td[colspan='5']").each(function () {
             // colspan 속성 값을 4으로 변경
             $(this).attr("colspan", "4");
         });
@@ -12,7 +12,7 @@ let reColspan = function () {
         // colspan 속성이 4인 td 요소를 찾아서
         $("tr.customerService-content td[colspan='4']").each(function () {
             // colspan 속성 값을 6으로 변경
-            $(this).attr("colspan", "6");
+            $(this).attr("colspan", "5");
         });
     }
 }
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 location.reload;
             },
             error: function () {
-                alert("simpleWithObject err");
+                alert("답변 저장에 실패했습니다.");
             }
         });
     });
@@ -84,10 +84,10 @@ $(document).ready(function () {
             data: JSON.stringify(json),
             success: function () {
                 swal("발송 완료!", "저장된 답변이 메일로 전송되었습니다.", "success");
-                // window.location = "/customerService"
+                location.reload;
             },
             error: function () {
-                alert("simpleWithObject err");
+                alert("메일 발송에 실패했습니다.");
             }
         });
     });

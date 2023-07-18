@@ -4,13 +4,13 @@
 <mapper namespace="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerServiceMapper">
 
     <select id="getCustomerService" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerService">
-        SELECT id, admin_id, title, category, user_name AS userName, email, detail, answer, file_name AS fileName, view, created_at AS createdAt
+        SELECT id, admin_id, title, category, user_name AS userName, email, detail, answer, img_url AS imgUrl, created_at AS createdAt
         FROM CUSTOMER_SERVICE
         WHERE id=#{customerServiceId}
     </select>
 
     <select id="getCustomerServicesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.customerservice.GetCustomerServicesDto">
-        SELECT c.id, c.admin_id, c.title, c.category, c.user_name AS userName, c.email, c.detail, c.answer, c.file_name AS fileName, c.view, c.created_at AS createdAt
+        SELECT c.id, c.admin_id, c.title, c.category, c.user_name AS userName, c.email, c.detail, c.answer, c.img_url AS imgUrl, c.created_at AS createdAt
         FROM CUSTOMER_SERVICE c
 <!--        INNER JOIN ADMIN a ON c.admin_id = a.id-->
         ORDER BY c.id DESC

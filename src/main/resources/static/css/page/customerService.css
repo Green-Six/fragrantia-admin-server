@@ -71,6 +71,10 @@ input {
   background-color: white;
 }
 
+.content {
+  height: 380px;
+}
+
 .content>.content_left {
   float: left;
   width: 15%;
@@ -113,6 +117,11 @@ textarea[type=text] {
   border-radius: 2px;
 }
 
+textarea[name="ask_detail"] {
+  background-color: #cecbcb4f;
+  border: #858585;
+}
+
 .content>.content_right {
   float: right;
   position: relative;
@@ -151,7 +160,7 @@ textarea[type=text] {
 
 .customerService-content .content_btn {
   text-align: right;
-  margin: 5px 20px 10px 0;
+  margin: 20px 20px 10px 0;
 }
 
 .content_bottom {

@@ -18,6 +18,10 @@
     background-image: url('../../images/brandStory3.jpg');
 }
 
+.prev_file {
+    display: none;
+}
+
 .description {
     max-width: 50%;
     border: 0.5px solid rgb(213, 213, 213);

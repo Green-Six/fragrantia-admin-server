@@ -18,7 +18,6 @@ public class GetCustomerServicesDto {
     private String email;
     private String detail;
     private String answer;
-    private String fileName;
-    private Long view;
+    private String imgUrl;
     private LocalDateTime createdAt;
 }
