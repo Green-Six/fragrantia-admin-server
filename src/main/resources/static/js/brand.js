@@ -120,7 +120,7 @@ submit.addEventListener('click', function () {
         async: false,
         success: function (response) {
           historyImgUrl = response;
-          alert("nature 이미지 등록 성공");
+          alert("history 이미지 등록 성공");
         },
         error: function () {
           console.error();

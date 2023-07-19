@@ -5,24 +5,23 @@
 
     <select id="getCustomerService" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerService">
         SELECT id, admin_id, title, category, user_name AS userName, email, detail, answer, img_url AS imgUrl, created_at AS createdAt
-        FROM CUSTOMER_SERVICE
+        FROM customer_service
         WHERE id=#{customerServiceId}
     </select>
 
     <select id="getCustomerServicesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.customerservice.GetCustomerServicesDto">
         SELECT c.id, c.admin_id, c.title, c.category, c.user_name AS userName, c.email, c.detail, c.answer, c.img_url AS imgUrl, c.created_at AS createdAt
-        FROM CUSTOMER_SERVICE c
-<!--        INNER JOIN ADMIN a ON c.admin_id = a.id-->
+        FROM customer_service c
         ORDER BY c.id DESC
         LIMIT #{offset}, #{limit}
     </select>
 
     <select id="getTotalCustomerServiceCount" resultType="int">
-        SELECT COUNT(id) FROM CUSTOMER_SERVICE
+        SELECT COUNT(id) FROM customer_service
     </select>
 
     <update id="updateCustomerService" parameterType="fragrantia.fragrantiaadminserver.domain.customerservice.CustomerService">
-        UPDATE CUSTOMER_SERVICE
+        UPDATE customer_service
         SET answer = #{answer}
         WHERE id = #{id}
     </update>

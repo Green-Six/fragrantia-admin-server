@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO NOTICE(title, content, created_at, admin_id)
+        INSERT INTO notice(title, content, created_at, admin_id)
         VALUES (
         #{title},
         #{content},
@@ -16,31 +16,31 @@
 
     <select id="getNotice" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
         SELECT id, admin_id, title, content, view, created_at AS createdAt
-        FROM NOTICE
+        FROM notice
         WHERE id=#{noticeId}
     </select>
 
     <select id="getNoticesWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.notice.GetNoticesDto">
         SELECT n.id, a.name, n.title, n.content, n.view, n.created_at AS createdAt
-        FROM NOTICE n
-        INNER JOIN ADMIN a ON n.admin_id = a.id
+        FROM notice n
+        INNER JOIN admin a ON n.admin_id = a.id
         ORDER BY n.id DESC
         LIMIT #{offset}, #{limit}
     </select>
 
     <select id="getTotalNoticeCount" resultType="int">
-        SELECT COUNT(id) FROM NOTICE
+        SELECT COUNT(id) FROM notice
     </select>
 
     <update id="updateNotice" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
-        UPDATE NOTICE
+        UPDATE notice
         SET title = #{title}, content = #{content}
         WHERE id = #{id}
     </update>
 
     <delete id="deleteNotice" parameterType="fragrantia.fragrantiaadminserver.domain.notice.Notice">
         DELETE
-        FROM NOTICE
+        FROM notice
         WHERE id = #{id}
     </delete>
 

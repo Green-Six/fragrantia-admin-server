@@ -6,12 +6,12 @@
 
     <select id="getBrandInfo" resultType="fragrantia.fragrantiaadminserver.domain.brandinfo.BrandInfo">
         SELECT history_img_url AS historyImgUrl, history_detail AS historyDetail, nature_img_url AS natureImgUrl, nature_detail AS natureDetail, human_img_url AS humanImgUrl, human_detail AS humanDetail
-        FROM BRAND_INFO
+        FROM brand_info
         WHERE id = 1
     </select>
 
     <update id="updateBrandInfo" parameterType="fragrantia.fragrantiaadminserver.domain.brandinfo.BrandInfo">
-        UPDATE BRAND_INFO
+        UPDATE brand_info
         SET history_img_url = #{historyImgUrl}, history_detail = #{historyDetail}, nature_img_url = #{natureImgUrl}, nature_detail = #{natureDetail}, human_img_url = #{humanImgUrl}, human_detail = #{humanDetail}
         WHERE id = 1
     </update>
