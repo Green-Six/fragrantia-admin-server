@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO STORE(latitude, longitude, zip, address, name, detail, telephone, img_url)
+        INSERT INTO store(latitude, longitude, zip, address, name, detail, telephone, img_url)
         VALUES (
         #{latitude},
         #{longitude},
@@ -20,30 +20,30 @@
 
     <select id="getStore" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.store.Store">
         SELECT id, latitude, longitude, zip, address, name, detail, telephone, img_url
-        FROM STORE
+        FROM store
         WHERE id = #{id}
     </select>
 
     <select id="getStoresWithPaging" resultType="fragrantia.fragrantiaadminserver.controller.dto.store.GetStoresDto">
         SELECT id, latitude, longitude, zip, address, name, detail, telephone, img_url AS imgURL
-        FROM STORE
+        FROM store
         ORDER BY id DESC
         LIMIT #{offset}, #{limit}
     </select>
 
     <select id="getTotalStoreCount" resultType="int">
-        SELECT COUNT(id) FROM STORE
+        SELECT COUNT(id) FROM store
     </select>
 
     <update id="updateStore" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store">
-        UPDATE STORE
+        UPDATE store
         SET latitude = #{latitude}, longitude = #{longitude}, zip = #{zip}, address = #{address}, name = #{name}, detail = #{detail}, telephone = #{telephone}, img_url = #{imgUrl}
         WHERE id = #{id}
     </update>
 
     <delete id="deleteStore" parameterType="fragrantia.fragrantiaadminserver.domain.store.Store">
         DELETE
-        FROM STORE
+        FROM store
         WHERE id = #{id}
     </delete>
 

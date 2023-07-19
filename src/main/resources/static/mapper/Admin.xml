@@ -6,7 +6,7 @@
 
     <insert id="create" parameterType="fragrantia.fragrantiaadminserver.domain.admin.Admin" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO ADMIN(email, password, name, branch, created_at)
+        INSERT INTO admin(email, password, name, branch, created_at)
         VALUES (
         #{email},
         #{password},
@@ -18,28 +18,28 @@
 
     <select id="idCheck" parameterType="String" resultType="int">
         SELECT COUNT(id)
-        FROM Admin WHERE email = #{email}
+        FROM admin WHERE email = #{email}
     </select>
 
     <select id="getAdmins" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
         SELECT *
-        FROM Admin
+        FROM admin
     </select>
 
     <select id="getAdmin" parameterType="long" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
         SELECT *
-        FROM Admin
+        FROM admin
         WHERE id=#{adminId}
     </select>
 
     <select id="getByEmail" parameterType="String" resultType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
         SELECT *
-        FROM Admin
+        FROM admin
         WHERE email=#{email}
     </select>
 
     <update id="updateAdminPassword" parameterType="fragrantia.fragrantiaadminserver.domain.admin.Admin">
-        UPDATE Admin
+        UPDATE admin
         SET email = #{email}, password = #{password}
         WHERE email = #{email}
     </update>
