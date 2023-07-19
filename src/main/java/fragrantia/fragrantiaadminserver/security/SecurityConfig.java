@@ -45,6 +45,12 @@ public class SecurityConfig {
             .passwordParameter("password")
             .permitAll();
 
+        http.logout()
+            .logoutUrl("/auth/logout")
+            .logoutSuccessUrl("/auth/login")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID");
+
         return http.build();
     }
 }
