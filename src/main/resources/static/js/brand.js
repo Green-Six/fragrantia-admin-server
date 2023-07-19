@@ -71,15 +71,46 @@ submit.addEventListener('click', function () {
   textAreas.forEach(e => {
     if (e.value.length > 0)
       isSomeTextAreaHasValue = true;
-  })
+  });
 
-  var historyImgUrl;
-  var natureImgUrl;
-  var humanImgUrl;
+  function updateAll(historyImgUrl, natureImgUrl, humanImgUrl) {
+    const json = {
 
-  if (ponds.some((e) => e.getFiles().length > 0) || isSomeTextAreaHasValue) {
-    if (window.confirm("제출하시겠습니까?")) {
+      historyImgUrl: historyImgUrl,
+      historyDetail: $('#namingTextarea').val(),
+      natureImgUrl: natureImgUrl,
+      natureDetail: $('#natureTextarea').val(),
+      humanImgUrl: humanImgUrl,
+      humanDetail: $('#humanTextarea').val()
+    };
 
+    console.log(json);
+
+    $.ajax({
+      url: "/brandInfo/update",
+      type: "POST",
+      contentType: 'application/json',
+      data: JSON.stringify(json),
+      async: false,
+      success: function () {
+        alert("수정되었습니다.")
+        location.reload();
+      },
+      error: function () {
+        alert("simpleWithObject err");
+      }
+    });
+  }
+
+  async function checkAndUploadImages() {
+
+    const historyImgFile = historyImg.get("file");
+    const natureImgFile = natureImg.get("file");
+    const humanImgFile = humanImg.get("file");
+
+    let historyImgUrl, natureImgUrl, humanImgUrl;
+
+    if (historyImgFile) {
       $.ajax({
         url: "/brandInfo/upload",
         type: "POST",
@@ -89,14 +120,17 @@ submit.addEventListener('click', function () {
         async: false,
         success: function (response) {
           historyImgUrl = response;
-          console.log("history 이미지 url: ", historyImgUrl);
+          alert("nature 이미지 등록 성공");
         },
         error: function () {
           console.error();
-          alert("history 이미지 등록 실패");
         }
       });
+    } else {
+      historyImgUrl = $('#history_prev_file').val();
+    }
 
+    if (natureImgFile) {
       $.ajax({
         url: "/brandInfo/upload",
         type: "POST",
@@ -106,13 +140,17 @@ submit.addEventListener('click', function () {
         async: false,
         success: function (response) {
           natureImgUrl = response;
-          console.log("nature 이미지 url: ", natureImgUrl);
+          alert("nature 이미지 등록 성공");
         },
         error: function () {
-          alert("nature 이미지 등록 실패");
+          console.error();
         }
       });
+    } else {
+      natureImgUrl = $('#nature_prev_file').val();
+    }
 
+    if (humanImgFile) {
       $.ajax({
         url: "/brandInfo/upload",
         type: "POST",
@@ -121,45 +159,31 @@ submit.addEventListener('click', function () {
         contentType: false,
         async: false,
         success: function (response) {
-          alert("모든 이미지가 성공적으로 등록되었습니다.");
           humanImgUrl = response;
-          console.log("human 이미지 url: ", humanImgUrl);
-
-          const json = {
-            historyImgUrl: historyImgUrl,
-            historyDetail: $('#namingTextarea').val(),
-            natureImgUrl: natureImgUrl,
-            natureDetail: $('#natureTextarea').val(),
-            humanImgUrl: humanImgUrl,
-            humanDetail: $('#humanTextarea').val()
-          };
-
-          console.log(json);
-
-          $.ajax({
-            url: "/brandInfo/update",
-            type: "POST",
-            contentType: 'application/json',
-            data: JSON.stringify(json),
-            async: false,
-            success: function () {
-              alert("수정되었습니다.")
-              location.reload();
-            },
-            error: function () {
-              alert("simpleWithObject err");
-            }
-          });
+          alert("human 이미지 등록 성공");
+        },
+        error: function () {
+          console.error();
         }
       });
+    } else {
+      humanImgUrl = $('#human_prev_file').val();
     }
 
+    updateAll(historyImgUrl, natureImgUrl, humanImgUrl);
   }
-  else {
+
+  if (ponds.some((e) => e.getFiles().length > 0) || isSomeTextAreaHasValue) {
+    if (window.confirm("제출하시겠습니까?")) {
+      checkAndUploadImages();
+    };
+  } else {
     var msg = '변경사항이 없습니다.';
     alert(msg);
   }
-})
+});
+
+
 let previeRef = null;
 const preview = document.getElementById('preview')
 preview.addEventListener('click', () => {
