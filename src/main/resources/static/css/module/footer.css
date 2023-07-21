@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Noto+Sans+KR:wght@300&display=swap");
+
+.footer {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.footer a,
+.footer li,
+.footer div,
+.footer span,
+.footer button {
+    color: #727272;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.footer .icon {
+    display: inline-block;
+    margin: 0 5px 10px 10px;
+}
+
+.footer .fa-brands {
+    transition: all 0.3s ease-in-out;
+}
+
+.footer .fa-brands:hover {
+    color: black;
+}
+
+@media screen and (max-width: 767px) {
+    .footer .fa-brands:hover {
+        color: white;
+    }
+}
+
+.footer>.company_info {
+    margin-right: 20px;
+    line-height: 1.6;
+}
+
+.footer>.company_info button {
+    border: rgb(92, 92, 92) 1px solid;
+    border-radius: 12px;
+    padding: 3px;
+    background: transparent;
+    margin-left: 6px;
+}
+
+.footer>.company_info button:active {
+    background-color: grey;
+    color: white;
+}
+
+.footer .item {
+    margin: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .footer {
+        background-color: black;
+    }
+
+    .footer .item span {
+        font-size: 10px;
+    }
+}
